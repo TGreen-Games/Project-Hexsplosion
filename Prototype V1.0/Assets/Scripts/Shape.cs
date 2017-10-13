@@ -70,6 +70,7 @@ public class Shape : MonoBehaviour
     // Use this for initialization
     private void Awake()
     {
+		DontDestroyOnLoad (this.transform.root.gameObject);
         detectTouch = this.gameObject.GetComponent<DetectTouch>();
     }
 
@@ -93,6 +94,7 @@ public class Shape : MonoBehaviour
         scale = this.transform.localScale;
         tiles = GameObject.FindGameObjectWithTag("Grid").GetComponentsInChildren<Button>();
         playerColor = this.GetComponent<SpriteRenderer>().color;
+
     }
   
 
@@ -133,6 +135,7 @@ public class Shape : MonoBehaviour
             if (tile.GetComponent<Image>().color == playerColor)
                 score++;
         }
+
     }
 
 

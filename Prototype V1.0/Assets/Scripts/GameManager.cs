@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     public List<Text> labelScores;
+	private Text[] scoreLabels;
     private GameObject[] players;
     private List<int> playerScores = new List<int>(4);
     private List<Color> playerColors = new List<Color>(4);
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour {
 
     private void DisplayScores()
     {
+		scoreLabels = FindObjectsOfType<Text> ();
         for(int i = 0; i < players.Length; i++)
         {
             playerScores.Add(players[i].GetComponent<Shape>().Score);
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour {
        for(int i = 0; i < players.Length; i++)
         {
             
-            labelScores[i].text = playerScores[i].ToString();
+			scoreLabels [i].text = playerScores [i].ToString ();
         }
         foreach (GameObject player in players)
         {
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour {
             {
                 i = 0;
                 if (playerColors[i] == player.GetComponent<Shape>().playerColor)
-                    labelScores[i].color = playerColors[i];
+					scoreLabels[i].color = playerColors[i];
                 else
                     i++;
                 
