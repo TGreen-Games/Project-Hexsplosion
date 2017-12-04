@@ -59,8 +59,8 @@ public class FillShape : MonoBehaviour {
         canCapture = true;
         yield return new WaitForFixedUpdate();
         this.gameObject.SetActive(false);
-    }
 
+    }
    
 
 

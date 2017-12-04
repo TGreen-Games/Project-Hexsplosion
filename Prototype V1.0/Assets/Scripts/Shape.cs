@@ -9,12 +9,14 @@ public class Shape : MonoBehaviour
     public float scaleRate = 0.001f;
     public float scaleSpeed = 0.1f;
     public Color playerColor;
-    private int score;
+    public int score;
     public int Score { get { return score; } }
     private Button[] tiles;
-
+    private TileManager tileManager;
     private DetectTouch detectTouch;
     private Vector3 scale;
+    public delegate int BoardChanged(int playerScore, Color playerColor);
+    public static event BoardChanged onCapture;
     private Enums.PlayerStage state;
     private Enums.PlayerStage State
     {
@@ -72,6 +74,7 @@ public class Shape : MonoBehaviour
     {
 		DontDestroyOnLoad (this.transform.root.gameObject);
         detectTouch = this.gameObject.GetComponent<DetectTouch>();
+        tileManager = this.gameObject.GetComponent<TileManager>();  
     }
 
     private void OnEnable()
@@ -125,7 +128,10 @@ public class Shape : MonoBehaviour
         {
             yield return null;
         }
+        yield return new WaitForFixedUpdate();
         State = Enums.PlayerStage.Neutral;
+        score = onCapture(score, playerColor);
+       
     }
 
     private void CalculateScore()
@@ -138,7 +144,21 @@ public class Shape : MonoBehaviour
 
     }
 
+    private void addScore()
+    {
+        var dirtyTiles = Tile.dirtyTiles;
+        foreach (GameObject tile in dirtyTiles)
+        {
+            Debug.Log("This is firing!!!");
+            var tileColor = tile.GetComponent<Image>().color;
+            if (tileColor == playerColor)
+            {
+                score++;
+                tileColor = playerColor;
+            }
 
+        }
+    }
 
 }
 
