@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D player)
     {
-        if (player.gameObject.CompareTag("Player"))
+        if (player.gameObject.CompareTag("Fill Shape"))
             playerColor = player.GetComponent<SpriteRenderer>().color;
             if (player.GetComponent<FillShape>().CanCapture)
             {

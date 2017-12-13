@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class StateManager_AI : MonoBehaviour {
 
-    private Enums.AiStage aiState;
+	private Enums.AiStage aiState = Enums.AiStage.Defence;
+    public Enums.AiStage AiState{ 
+        get { return aiState; } 
+        set{
+            if (aiState == value) return;
+            aiState = value;
+            if (onStateChanged != null)
+                onStateChanged();
+        }
+    }
     private Dictionary<Color, int> playerScores = new Dictionary<Color, int>();
     private int playerScore;
+    private int place;
+    private List<int> sortedScores = new List<int>();
     private Color playerColor;
+    public delegate void UpdateState();
+    public event UpdateState onStateChanged;
 
+	private void OnEnable(){
+		GameManager.sendToAI += RecievePlayerScores;
+	}
 	// Use this for initialization
+
 	void Start () {
-        playerColor = this.gameObject.GetComponent<SpriteRenderer>().color;
-        GameManager.sendToAI += RecievePlayerScores;
+        playerColor = this.gameObject.GetComponent<SpriteRenderer>().color;     
 	}
 	
 	// Update is called once per frame
@@ -23,11 +39,25 @@ public class StateManager_AI : MonoBehaviour {
     private void RecievePlayerScores(Dictionary <Color, int> updatedScores)
     {
         playerScores = updatedScores;
+        playerScore = playerScores[playerColor];
+        place = 1;
+        foreach (int score in playerScores.Values){
+            if (playerScore < score)
+                place++;
+
+        }
+        assignState();
     }
 
     private void assignState()
     {
-       
-
+		if (place == 1)
+			AiState = Enums.AiStage.Defence;
+		else if (place == 4)
+			AiState = Enums.AiStage.Attack;
+		else
+			AiState = Enums.AiStage.Neutral;
+                                                  
+      }
     }
-}
+

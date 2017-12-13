@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tile
   - Grid
+  - Fill Shape
   layers:
   - Default
   - TransparentFX

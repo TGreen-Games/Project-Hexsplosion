@@ -314,6 +314,7 @@
     <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\FillShape.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Shape.cs" />
     <Compile Include="Assets\Scripts\Shape_AI.cs" />
     <Compile Include="Assets\Scripts\StateManager_AI.cs" />

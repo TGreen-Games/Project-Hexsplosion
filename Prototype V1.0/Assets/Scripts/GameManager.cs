@@ -11,26 +11,24 @@ public class GameManager : MonoBehaviour {
     public static event SendScoreData sendToAI;
 	private Text[] scoreLabels;
     private GameObject[] players;
-   // private List<int> playerScores = new List<int>(4);
-    private List<Color> playerColors = new List<Color>(4);
     private Dictionary<Color, int> playerScores = new Dictionary<Color, int>();
     private GameObject[] grid;
+
     // Use this for initialization
     private void Awake()
     {
         DontDestroyOnLoad(this.transform.gameObject);
+
     }
     private void OnEnable()
     {
         SceneManager.sceneLoaded += onSceneLoaded;
-        Shape.onCapture += UpdatePlayerScore;
+        Player.onCapture += UpdatePlayerScore;
+        Timer.onGameOver += LoadScoreScreen;
     }
     void Start () {
         players = GameObject.FindGameObjectsWithTag("Player");
-        Timer.onGameOver += LoadScoreScreen;
-        Shape.onCapture += UpdatePlayerScore;
         grid = GameObject.FindGameObjectsWithTag("Tile");
-        GetPlayerColors();
         AddPlayerScores();
     }
 	
@@ -66,20 +64,12 @@ public class GameManager : MonoBehaviour {
     //    }
     //}
 
-    void GetPlayerColors()
-    {
-        for(int i = 0; i < players.Length; i++)
-        {
-            playerColors.Add(players[i].GetComponent<Shape>().playerColor);
-        }
-    }
 
     void AddPlayerScores(){
-        foreach(Color playerColor in playerColors){
-            playerScores.Add(playerColor, 0);
+		foreach(GameObject player in players){
+			var playerColor = player.GetComponent<Shape> ().shapeColor;
+			playerScores.Add (playerColor, 0);
         }
-       
-
     }
 
     private void LoadScoreScreen()
@@ -108,7 +98,7 @@ public class GameManager : MonoBehaviour {
         }
 
         playerScores[playerColor] = playerScore;
-       
+        sendToAI(playerScores);
         return playerScore;
     }
 

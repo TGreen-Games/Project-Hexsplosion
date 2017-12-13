@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4122530606346450}
   - component: {fileID: 212794000555605950}
-  - component: {fileID: 114031819140638630}
   - component: {fileID: 114988400356384516}
   - component: {fileID: 114510560563501038}
+  - component: {fileID: 114550452245311042}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Player
@@ -43,20 +43,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114031819140638630
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1976103541035448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8416254854e0b524791437d162ca2143, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fillShape: {fileID: 0}
-  scaleRate: 0.01
-  scaleSpeed: 0.1
 --- !u!114 &114510560563501038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,6 +54,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7cde29f7d47364a99322dfa3a5f237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114550452245311042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1976103541035448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418ac91a086104c368c3d1185b765ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillShape: {fileID: 1195920008644196, guid: 5a58332ade215814cb635ad6573f1158, type: 2}
+  scaleRate: 0.001
+  scaleSpeed: 0.1
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
+  score: 0
 --- !u!114 &114988400356384516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,6 +97,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -110,14 +113,22 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c3485218797390343be5bba58a582e9f, type: 3}
   m_Color: {r: 0.9338235, g: 0.06866351, b: 0.08656322, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
