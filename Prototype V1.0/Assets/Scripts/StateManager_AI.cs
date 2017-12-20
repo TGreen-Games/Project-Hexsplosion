@@ -22,9 +22,13 @@ public class StateManager_AI : MonoBehaviour {
     public delegate void UpdateState();
     public event UpdateState onStateChanged;
 
+	private void Awake(){
+	}
+
 	private void OnEnable(){
 		GameManager.sendToAI += RecievePlayerScores;
 	}
+
 	// Use this for initialization
 
 	void Start () {
@@ -36,18 +40,21 @@ public class StateManager_AI : MonoBehaviour {
 		
 	}
 
-    private void RecievePlayerScores(Dictionary <Color, int> updatedScores)
+    public void RecievePlayerScores(Dictionary <Color, int> updatedScores)
     {
-        playerScores = updatedScores;
-        playerScore = playerScores[playerColor];
-        place = 1;
-        foreach (int score in playerScores.Values){
-            if (playerScore < score)
-                place++;
-
-        }
+		playerScores = updatedScores;
+		assignPlace();
         assignState();
     }
+
+	private void assignPlace(){
+		place = 1;
+		foreach (int score in playerScores.Values) {
+			if (playerScore < score)
+				place++;
+		}
+
+	}
 
     private void assignState()
     {
@@ -59,5 +66,7 @@ public class StateManager_AI : MonoBehaviour {
 			AiState = Enums.AiStage.Neutral;
                                                   
       }
-    }
+		
+
+}
 

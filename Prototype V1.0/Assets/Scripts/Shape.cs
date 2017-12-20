@@ -9,7 +9,7 @@ public class Shape : MonoBehaviour
     public float scaleRate = 0.001f;
     public float scaleSpeed = 0.1f;
     public Color shapeColor;
-    public int score;
+    protected int score;
     public int Score { get { return score; } }
     private Button[] tiles;
     private TileManager tileManager;
@@ -26,6 +26,7 @@ public class Shape : MonoBehaviour
     protected void OnEnable()
     {
         Timer.onGameOver += CalculateScore;
+		shapeColor = this.GetComponent<SpriteRenderer>().color;
 
     }
     protected void OnDisable()
@@ -37,7 +38,6 @@ public class Shape : MonoBehaviour
         Debug.Log(fillShape);
         scale = this.transform.localScale;
         tiles = GameObject.FindGameObjectWithTag("Grid").GetComponentsInChildren<Button>();
-		shapeColor = this.GetComponent<SpriteRenderer>().color;
 		Debug.Log ("Yhis Happened!!!!");
     }
 

@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
         SceneManager.sceneLoaded += onSceneLoaded;
         Player.onCapture += UpdatePlayerScore;
         Timer.onGameOver += LoadScoreScreen;
+		Shape_AI.OnCapture += UpdateAiScore;
     }
     void Start () {
         players = GameObject.FindGameObjectsWithTag("Player");
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour {
 
     void AddPlayerScores(){
 		foreach(GameObject player in players){
-			var playerColor = player.GetComponent<Shape> ().shapeColor;
+			var playerColor = player.GetComponent<SpriteRenderer> ().color;
 			playerScores.Add (playerColor, 0);
         }
     }
@@ -89,18 +90,37 @@ public class GameManager : MonoBehaviour {
 
     private int UpdatePlayerScore(int playerScore, Color playerColor)
     {
-        Debug.Log("Score should be updTED!!!");
-        playerScore = 0;
-        foreach(GameObject tile in grid){
-            var tileColor = tile.GetComponent<Image>().color;      
-            if (tileColor == playerColor)
-                playerScore++;
-        }
-
+		playerScore = CountScore (playerScore, playerColor);
         playerScores[playerColor] = playerScore;
-        sendToAI(playerScores);
         return playerScore;
+
     }
+
+	private int CountScore(int score, Color color){
+		foreach (GameObject tile in grid) {
+			var tileColor = tile.GetComponent<Image> ().color;      
+			if (tileColor == color)
+				score++;
+		}
+		return score;
+	}
+
+	private void UpdateAiScore(int aiScore, Color aiColor){
+		aiScore = CountScore (aiScore, aiColor);
+		playerScores [aiColor] = aiScore;
+		sendToAI (playerScores);
+	}
+
+
+		
+
+	
+
+	
+
+
+			
+
 
     //private List <int> SendScores(List <int> scores){
         //scores = playerScores;
