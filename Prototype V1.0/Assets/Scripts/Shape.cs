@@ -8,11 +8,16 @@ public class Shape : MonoBehaviour
     public GameObject fillShape;
     public float scaleRate = 0.001f;
     public float scaleSpeed = 0.1f;
+	public float collisionStunTime = 5.0f;
+	public Text stunText;
+    public ParticleSystem stunprefab;
+    public ParticleSystem.EmissionModule module;
     public Color shapeColor;
     protected int score;
     public int Score { get { return score; } }
     private Button[] tiles;
     private TileManager tileManager;
+	protected bool isStunned = false;
     protected Vector3 scale;
 
     // Use this for initialization
@@ -38,7 +43,7 @@ public class Shape : MonoBehaviour
         Debug.Log(fillShape);
         scale = this.transform.localScale;
         tiles = GameObject.FindGameObjectWithTag("Grid").GetComponentsInChildren<Button>();
-		Debug.Log ("Yhis Happened!!!!");
+        Debug.Log ("Yhis Happened!!!!");
     }
 
     private void CalculateScore()
@@ -51,7 +56,8 @@ public class Shape : MonoBehaviour
 
     }
 
- 
 
+   
 }
+
 

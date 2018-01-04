@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114891894582981412}
   - component: {fileID: 114266099909599838}
   - component: {fileID: 114573756092350014}
+  - component: {fileID: 58385230133637700}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Player
@@ -140,6 +141,21 @@ CircleCollider2D:
   m_Offset: {x: -0.3, y: 1}
   serializedVersion: 2
   m_Radius: 3.7
+--- !u!58 &58385230133637700
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864817439757376}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.40844777, y: 0.8558564}
+  serializedVersion: 2
+  m_Radius: 3.6752367
 --- !u!114 &114266099909599838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,8 +194,10 @@ MonoBehaviour:
   fillShape: {fileID: 1542033520558166}
   scaleRate: 0.01
   scaleSpeed: 0.1
+  collisionStunTime: 5
+  stunText: {fileID: 0}
+  stunprefab: {fileID: 19870958, guid: 37529a8d3a3aaf7498b62309b1c015ab, type: 2}
   shapeColor: {r: 0, g: 0, b: 0, a: 0}
-  score: 0
 --- !u!114 &114891894582981412
 MonoBehaviour:
   m_ObjectHideFlags: 1

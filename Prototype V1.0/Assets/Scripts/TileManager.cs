@@ -36,7 +36,6 @@ public class TileManager : MonoBehaviour
 
     private void minusScore(int playerScore, Color playerColor)
     {
-        dirtyTiles = Tile.dirtyTiles;
         foreach (GameObject tile in dirtyTiles)
         {
             if (playerColor == tile.GetComponent<Image>().color)
@@ -49,7 +48,6 @@ public class TileManager : MonoBehaviour
 
     private void addScore(int playerScore, Color playerColor)
     {
-        dirtyTiles = Tile.dirtyTiles;
         foreach (GameObject tile in dirtyTiles)
         {
             Debug.Log("This is firing!!!");

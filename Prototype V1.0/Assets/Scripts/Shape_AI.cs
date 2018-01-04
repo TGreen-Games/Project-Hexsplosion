@@ -8,13 +8,20 @@ public class Shape_AI : Shape
 
     private StateManager_AI actionindicator;
 	private List <GameObject> grid;
+	public float detectionRadius = 1;
 	public float waitTime = 3f;
     public int bravery = 100;
-    public int braveryLimit;
+	public int braveryLimit = 50;
+	public int seed;
 	public delegate void BoardChanged(int aiScore, Color color);
 	public static event BoardChanged OnCapture;
     private int timidModifier;
 	private int braveryCheck;
+	private bool isOtherPlayerOver;
+	private Color tileColor;
+	private Vector2 tilePosition;
+	public System.Random generateRandomNum;
+	private bool canMove = true;
     // Use this for initialization
 	// make random seed for script
     new private void Awake()
@@ -29,10 +36,12 @@ public class Shape_AI : Shape
 	new private void Start()
     {
 		base.Start ();
+		generateRandomNum = new System.Random (System.Environment.TickCount);
 		grid = new List<GameObject>();
 		grid.AddRange(GameObject.FindGameObjectsWithTag("Tile"));
 		actionindicator.AiState = Enums.AiStage.Neutral;
 		StartCoroutine (Action());
+
 
     }
 
@@ -40,17 +49,15 @@ public class Shape_AI : Shape
     void Update()
     {
     }
-		
-
-//    private void StateChanged()
-//    {
-//        Move(actionindicator.AiState);
-//    }
 
 	private IEnumerator Action(){
-		while (true) {
-			Move (actionindicator.AiState);
-			Fill ();
+        while (true) {
+			if (canMove) 
+			{
+				canMove = false;
+				waitTime = generateRandomNum.Next (1, 3);
+				Move (actionindicator.AiState);	
+			}
 			yield return new WaitForSeconds (waitTime);
 		}
 	}
@@ -59,26 +66,23 @@ public class Shape_AI : Shape
     {
         if (state == Enums.AiStage.Attack)
         {
-            timidModifier = 1;
-            braveryLimit = 50;
             foreach (GameObject tile in grid)
             {
-                var tileColor = tile.GetComponent<Image>().color;
-                if (tileColor != shapeColor)
-                {
+				GetTileInfo (tile);
+				if (tileColor != shapeColor && isPlayerDetected(tilePosition,detectionRadius) == false) 
+				{
 					this.transform.position = (Vector2)tile.transform.position;
-                    break;
-                }
-            }
+					break;
+				} 
+             }
         }
         else if(state == Enums.AiStage.Defence)
         {
 			bravery = 150;
-			braveryLimit = 50;
             foreach (GameObject tile in grid)
             {
-                var tileColor = tile.GetComponent<Image>().color;
-                if (tileColor == shapeColor)
+				GetTileInfo (tile);
+				if (tileColor == shapeColor && isPlayerDetected(tilePosition,detectionRadius) == false)
                 {
 					this.transform.position = (Vector2)tile.transform.position;
                     break;
@@ -88,9 +92,7 @@ public class Shape_AI : Shape
         }
         else
         {
-			braveryLimit = 50;
-			var randomTile = grid [Random.Range (0, grid.Count)];
-			this.transform.position = (Vector2)randomTile.transform.position;
+			while (FoundRandomTile () == false) {}
         }
 
 		StartCoroutine (Expand ());
@@ -98,10 +100,12 @@ public class Shape_AI : Shape
 
     private IEnumerator Expand()
     {
+		timidModifier = 0;
         do
         {
             this.transform.localScale += new Vector3(scaleRate, scaleRate) * scaleSpeed;
-			braveryCheck = Random.Range(0, braveryLimit) + timidModifier;
+			var randomNum = generateRandomNum.Next(0,braveryLimit);
+			braveryCheck =  randomNum + timidModifier;
             timidModifier++;
             yield return new WaitForFixedUpdate();
         } while (bravery > braveryCheck);
@@ -118,12 +122,59 @@ public class Shape_AI : Shape
         }
 		this.transform.localScale = scale;
 		OnCapture(score, shapeColor);
+		canMove = true;
        
     }
 
+	private void GetTileInfo( GameObject tile)
+	{
+		tileColor = tile.GetComponent<Image> ().color;
+		tilePosition = tile.transform.position;
+	}
 
-    private void SearchGrid()
+	private bool FoundRandomTile()
+	{
+		var randomNum = generateRandomNum.Next (0, grid.Count);
+		GameObject randomTile = grid [randomNum];
+		GetTileInfo (randomTile);
+		if (isPlayerDetected(tilePosition,detectionRadius) == false) 
+		{
+			this.transform.position = (Vector2)randomTile.transform.position;
+			return true;
+		}
+		else
+			return false;
+	}
+
+	private bool isPlayerDetected(Vector2 position, float radius)
+	{
+		Collider2D[] hitPLayers = Physics2D.OverlapCircleAll (position, radius);
+		foreach (Collider2D player in hitPLayers)
+		{
+			if (player.gameObject.CompareTag ("Player"))
+				return true;
+		}
+		return false;
+	}
+
+    private void OnCollisionEnter2D(Collision2D player)
     {
-        // do this next
+        if (player.gameObject.CompareTag("Player"))
+        {
+            this.transform.localScale = scale;
+            this.fillShape.SetActive(false);
+            StopAllCoroutines();
+            Instantiate(stunprefab,this.transform.position,Quaternion.identity);
+            StartCoroutine(Stun());
+        }
+
+
     }
+
+    private IEnumerator Stun(){
+        yield return new WaitForSeconds(collisionStunTime);
+        canMove = true;
+        StartCoroutine(Action());
+    }
+
 }

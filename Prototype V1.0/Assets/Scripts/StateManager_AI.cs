@@ -66,7 +66,8 @@ public class StateManager_AI : MonoBehaviour {
 			AiState = Enums.AiStage.Neutral;
                                                   
       }
-		
+
+
 
 }
 
