@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tile
   - Grid
+  - Fill Shape
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Tile
+  - Fill Shape
   - 
   - 
   - 
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Board
+    uniqueID: 168990259
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

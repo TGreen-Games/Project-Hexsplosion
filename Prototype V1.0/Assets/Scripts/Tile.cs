@@ -4,30 +4,60 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Tile : MonoBehaviour {
+    private int fillShapeIndex = 1 << 9;
+    public Color PlayerColor { get { return playerColor; } }
     private Color playerColor;
-	public static List<GameObject> dirtyTiles;
+    private Image tileImage;
+    private Color originalColor;
 	// Use this for initialization
+
 	void Start () {
-		if (dirtyTiles == null)
-			dirtyTiles = new List <GameObject> ();
+
+        tileImage = gameObject.GetComponent<Image>();
+        originalColor = tileImage.color;    
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+    private void OnMouseDown()
+    {
+        Debug.Log("I'm hit!");
+    }
+
+    // Update is called once per frame
+    void Update () {
 	}
 
     private void OnTriggerStay2D(Collider2D player)
     {
-        if (player.gameObject.CompareTag("Player"))
-            playerColor = player.GetComponent<SpriteRenderer>().color;
-            if (player.GetComponent<FillShape>().CanCapture)
-            {
-                Debug.Log("TRIGGERED!!!!!");
-			    //dirtyTiles.Add (this.gameObject);
-                this.GetComponent<Image>().color = playerColor;
-            }
+		if (player.gameObject.CompareTag ("Fill Shape")) 
+		{
+
+			if (player.GetComponent<FillShape> ().CanCapture) 
+			{
+                if(tileImage.color != originalColor)
+                {
+                    TileManager.instance.MinusTile(this.gameObject,tileImage.color);
+                }
+                playerColor = player.GetComponent<SpriteRenderer>().color;
+				tileImage.color = playerColor;
+                TileManager.instance.AddTile(this.gameObject, playerColor);
+			}
+		}
             
         }
-    
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.gameObject.CompareTag("Player")){
+    //        dirtyTiles.Add(this.gameObject);
+           
+    //    }
+    //}
+
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player")){
+    //        dirtyTiles.Remove(this.gameObject);
+         
+    //    }
+    //}
 }
