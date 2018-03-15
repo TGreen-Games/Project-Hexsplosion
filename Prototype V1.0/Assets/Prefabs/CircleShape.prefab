@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 114266099909599838}
   - component: {fileID: 114573756092350014}
   - component: {fileID: 58385230133637700}
+  - component: {fileID: 50219324739575332}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Player
@@ -87,8 +88,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1864817439757376}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.672, y: -4.472, z: 0}
-  m_LocalScale: {x: 0.06702141, y: 0.06585217, z: 1}
+  m_LocalPosition: {x: 0.086, y: -4.752, z: 0}
+  m_LocalScale: {x: 0.04872615, y: 0.04998547, z: 1}
   m_Children: []
   m_Father: {fileID: 4685958426680036}
   m_RootOrder: 0
@@ -116,6 +117,26 @@ Rigidbody2D:
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!50 &50219324739575332
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864817439757376}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -195,9 +216,11 @@ MonoBehaviour:
   scaleRate: 0.01
   scaleSpeed: 0.1
   collisionStunTime: 5
-  stunText: {fileID: 0}
   stunprefab: {fileID: 19870958, guid: 37529a8d3a3aaf7498b62309b1c015ab, type: 2}
+  stunShot: {fileID: 19841060, guid: c11ec31625295454988054caf01a8f1e, type: 2}
   shapeColor: {r: 0, g: 0, b: 0, a: 0}
+  score: 0
+  place: 0
 --- !u!114 &114891894582981412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -213,7 +236,7 @@ MonoBehaviour:
   SimulateMouseWithTouches: 0
   PassThroughObjects: []
   TouchCircles: []
-  ShowTouches: 0
+  ShowTouches: 1
   DefaultDPI: 200
   ClearGesturesOnLevelLoad: 1
 --- !u!212 &212046095027585588

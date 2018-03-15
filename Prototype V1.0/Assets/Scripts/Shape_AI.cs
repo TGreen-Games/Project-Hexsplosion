@@ -7,40 +7,49 @@ public class Shape_AI : Shape
 {
 
     private StateManager_AI actionindicator;
-	private List <GameObject> grid;
-	public float detectionRadius = 1;
-	public float waitTime = 3f;
+    private List<GameObject> grid;
+    public float detectionRadius = 1;
+    public float waitTime = 3f;
     public int bravery = 100;
-	public int braveryLimit = 50;
-	public int seed;
-	public delegate void BoardChanged(int aiScore, Color color);
-	public static event BoardChanged OnCapture;
+    public int braveryLimit = 50;
+    //public int seed;
+    public delegate void ShootAttack(Collider2D playerHit, Color attackingColor);
+    public static event ShootAttack OnShoot;
+    //public delegate void BoardChanged(int aiScore, Color color);
+    //public static event BoardChanged OnCapture;
     private int timidModifier;
-	private int braveryCheck;
-	private bool isOtherPlayerOver;
-	private Color tileColor;
-	private Vector2 tilePosition;
-	public System.Random generateRandomNum;
-	private bool canMove = true;
+    private int braveryCheck;
+    private Color tileColor;
+    private Vector2 tilePosition;
+    private StunShot shotScript;
+    public System.Random generateRandomNum;
     // Use this for initialization
-	// make random seed for script
-    new private void Awake()
+    // make random seed for script
+    private void Awake()
     {
-		base.Awake ();
+       ;
         actionindicator = this.gameObject.GetComponent<StateManager_AI>();
+        shotScript = this.GetComponent<StunShot>();
     }
     new private void OnEnable()
     {
-		base.OnEnable ();
+        base.OnEnable();
+        Player.OnAttacking += imHit;
+        Shape_AI.OnShoot += imAttacking;
+        //seed = System.Environment.TickCount + this.gameObject.GetHashCode();
+
     }
-	new private void Start()
+    new private void Start()
     {
-		base.Start ();
-		generateRandomNum = new System.Random (System.Environment.TickCount);
-		grid = new List<GameObject>();
-		grid.AddRange(GameObject.FindGameObjectsWithTag("Tile"));
-		actionindicator.AiState = Enums.AiStage.Neutral;
-		StartCoroutine (Action());
+        base.Start();
+        generateRandomNum = new System.Random(System.Environment.TickCount + this.gameObject.GetHashCode());
+        grid = new List<GameObject>();
+        grid.AddRange(GameObject.FindGameObjectsWithTag("Tile"));
+        actionindicator.AiState = Enums.AiStage.Neutral;
+        StartCoroutine(Action());
+        //TileManager.instance.AddColor(shapeColor);
+        GameManager2.Instance.AddPlayer(shapeColor, this);
+       
 
 
     }
@@ -50,17 +59,35 @@ public class Shape_AI : Shape
     {
     }
 
-	private IEnumerator Action(){
-        while (true) {
-			if (canMove) 
-			{
-				canMove = false;
-				waitTime = generateRandomNum.Next (1, 3);
-				Move (actionindicator.AiState);	
-			}
-			yield return new WaitForSeconds (waitTime);
-		}
-	}
+    //private void UpdateState(Enums.AiStage currentState){
+
+    //}
+    private IEnumerator Action()
+    {
+        while (true)
+        {
+            waitTime = generateRandomNum.Next(1, 3);
+            if (shotScript.isAttacking())
+            {
+
+                var tile = shotScript.SelectTile();
+                if (tile == null)
+                    break;
+                var hitPlayer = isPlayerDetected(tile.transform.position, detectionRadius);
+                if (hitPlayer != null)
+                {
+                    OnShoot(hitPlayer, shapeColor);
+                    Debug.Log("I just shot! My color is: " + shapeColor);
+                }
+            }
+            else if (canMove)
+            {
+                canMove = false;
+                Move(actionindicator.AiState);
+            }
+            yield return new WaitForSeconds(waitTime);
+        }
+    }
 
     private void Move(Enums.AiStage state)
     {
@@ -68,23 +95,23 @@ public class Shape_AI : Shape
         {
             foreach (GameObject tile in grid)
             {
-				GetTileInfo (tile);
-				if (tileColor != shapeColor && isPlayerDetected(tilePosition,detectionRadius) == false) 
-				{
-					this.transform.position = (Vector2)tile.transform.position;
-					break;
-				} 
-             }
+                GetTileInfo(tile);
+                if (tileColor != shapeColor && isPlayerDetected(tilePosition, detectionRadius) == null)
+                {
+                    this.transform.position = (Vector2)tile.transform.position;
+                    break;
+                }
+            }
         }
-        else if(state == Enums.AiStage.Defence)
+        else if (state == Enums.AiStage.Defence)
         {
-			bravery = 150;
+            bravery = 150;
             foreach (GameObject tile in grid)
             {
-				GetTileInfo (tile);
-				if (tileColor == shapeColor && isPlayerDetected(tilePosition,detectionRadius) == false)
+                GetTileInfo(tile);
+                if (tileColor == shapeColor && isPlayerDetected(tilePosition, detectionRadius) == null)
                 {
-					this.transform.position = (Vector2)tile.transform.position;
+                    this.transform.position = (Vector2)tile.transform.position;
                     break;
                 }
             }
@@ -92,24 +119,24 @@ public class Shape_AI : Shape
         }
         else
         {
-			while (FoundRandomTile () == false) {}
+            while (FoundRandomTile() == false) { }
         }
 
-		StartCoroutine (Expand ());
+        StartCoroutine(Expand());
     }
 
     private IEnumerator Expand()
     {
-		timidModifier = 0;
+        timidModifier = 0;
         do
         {
             this.transform.localScale += new Vector3(scaleRate, scaleRate) * scaleSpeed;
-			var randomNum = generateRandomNum.Next(0,braveryLimit);
-			braveryCheck =  randomNum + timidModifier;
+            var randomNum = generateRandomNum.Next(0, braveryLimit);
+            braveryCheck = randomNum + timidModifier;
             timidModifier++;
             yield return new WaitForFixedUpdate();
         } while (bravery > braveryCheck);
-		StartCoroutine (Fill ());
+        StartCoroutine(Fill());
 
     }
 
@@ -120,61 +147,91 @@ public class Shape_AI : Shape
         {
             yield return null;
         }
-		this.transform.localScale = scale;
-		OnCapture(score, shapeColor);
-		canMove = true;
-       
+        this.transform.localScale = scale;
+        //OnCapture(score, shapeColor);
+        canMove = true;
+
+
+
     }
 
-	private void GetTileInfo( GameObject tile)
-	{
-		tileColor = tile.GetComponent<Image> ().color;
-		tilePosition = tile.transform.position;
-	}
+    private void GetTileInfo(GameObject tile)
+    {
+        tileColor = tile.GetComponent<Image>().color;
+        tilePosition = tile.transform.position;
+    }
 
-	private bool FoundRandomTile()
-	{
-		var randomNum = generateRandomNum.Next (0, grid.Count);
-		GameObject randomTile = grid [randomNum];
-		GetTileInfo (randomTile);
-		if (isPlayerDetected(tilePosition,detectionRadius) == false) 
-		{
-			this.transform.position = (Vector2)randomTile.transform.position;
-			return true;
-		}
-		else
-			return false;
-	}
+    private bool FoundRandomTile()
+    {
+        var randomNum = generateRandomNum.Next(0, grid.Count);
+        GameObject randomTile = grid[randomNum];
+        GetTileInfo(randomTile);
+        if (isPlayerDetected(tilePosition, detectionRadius) == false)
+        {
+            this.transform.position = (Vector2)randomTile.transform.position;
+            return true;
+        }
+        else
+            return false;
+    }
 
-	private bool isPlayerDetected(Vector2 position, float radius)
-	{
-		Collider2D[] hitPLayers = Physics2D.OverlapCircleAll (position, radius);
-		foreach (Collider2D player in hitPLayers)
-		{
-			if (player.gameObject.CompareTag ("Player"))
-				return true;
-		}
-		return false;
-	}
+    //rework this next
+    private Collider2D isPlayerDetected(Vector2 position, float radius)
+    {
+        Collider2D[] hitPLayers = Physics2D.OverlapCircleAll(position, radius);
+        foreach (Collider2D player in hitPLayers)
+        {
+            if (player.gameObject.CompareTag("Player") && player.gameObject != this.gameObject)
+                return player;
+        }
+        return null;
+    }
 
     private void OnCollisionEnter2D(Collision2D player)
     {
         if (player.gameObject.CompareTag("Player"))
         {
-            this.transform.localScale = scale;
-            this.fillShape.SetActive(false);
+            Instantiate(stunprefab, this.transform.position, Quaternion.identity);
             StopAllCoroutines();
-            Instantiate(stunprefab,this.transform.position,Quaternion.identity);
             StartCoroutine(Stun());
         }
 
-
     }
 
-    private IEnumerator Stun(){
+    public IEnumerator Stun()
+    {
+        canMove = false;
+        this.transform.localScale = scale;
+        this.fillShape.SetActive(false);
         yield return new WaitForSeconds(collisionStunTime);
         canMove = true;
         StartCoroutine(Action());
+    }
+
+    private void imHit(RaycastHit2D playerHit, Color attackColor)
+    {
+        if (playerHit.collider.gameObject == this.gameObject)
+        {
+            var attackingShot = stunShot.main;
+            attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+            Instantiate(stunShot, this.transform.position, Quaternion.identity);
+            StopAllCoroutines();
+            StartCoroutine(Stun());
+        }
+    }
+
+    private void imAttacking(Collider2D hitPlayer, Color attackColor)
+    {
+        var myCollider = this.GetComponent<Collider2D>();
+        if (hitPlayer == myCollider)
+        {
+            var attackingShot = stunShot.main;
+            attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+            Instantiate(stunShot, this.transform.position, Quaternion.identity);
+            StopAllCoroutines();
+            StartCoroutine(Stun());
+
+        }
     }
 
 }

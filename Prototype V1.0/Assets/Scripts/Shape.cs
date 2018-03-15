@@ -8,56 +8,45 @@ public class Shape : MonoBehaviour
     public GameObject fillShape;
     public float scaleRate = 0.001f;
     public float scaleSpeed = 0.1f;
-	public float collisionStunTime = 5.0f;
-	public Text stunText;
+    public float collisionStunTime = 5.0f;
     public ParticleSystem stunprefab;
-    public ParticleSystem.EmissionModule module;
+    public ParticleSystem stunShot;
+    //public ParticleSystem.EmissionModule module;
     public Color shapeColor;
-    protected int score;
-    public int Score { get { return score; } }
-    private Button[] tiles;
-    private TileManager tileManager;
-	protected bool isStunned = false;
+    public int score;
+    public int place;
+    protected bool canMove = true;
+    protected bool isStunned = false;
     protected Vector3 scale;
 
     // Use this for initialization
-    protected void Awake()
-    {
-		DontDestroyOnLoad (this.transform.root.gameObject);
-        tileManager = this.gameObject.GetComponent<TileManager>();
-		Debug.Log ("This Happened");
-    }
 
     protected void OnEnable()
     {
-        Timer.onGameOver += CalculateScore;
-		shapeColor = this.GetComponent<SpriteRenderer>().color;
-
+        shapeColor = this.GetComponent<SpriteRenderer>().color;
     }
     protected void OnDisable()
     {
-        Timer.onGameOver -= CalculateScore;
+        
     }
     protected void Start()
     {
         Debug.Log(fillShape);
         scale = this.transform.localScale;
-        tiles = GameObject.FindGameObjectWithTag("Grid").GetComponentsInChildren<Button>();
-        Debug.Log ("Yhis Happened!!!!");
-    }
-
-    private void CalculateScore()
-    {
-        foreach (var tile in tiles)
-        {
-            if (tile.GetComponent<Image>().color == shapeColor)
-                score++;
-        }
-
+        Debug.Log("Yhis Happened!!!!");
     }
 
 
-   
+    //protected IEnumerator Stun()
+    //{
+    //    canMove = false;
+    //    this.transform.localScale = scale;
+    //    this.fillShape.SetActive(false);
+    //    yield return new WaitForSeconds(collisionStunTime);
+    //    canMove = true;
+    //}
 }
+       
+
 
 

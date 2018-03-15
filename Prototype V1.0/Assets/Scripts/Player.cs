@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Player : Shape {
+public class Player : Shape
+{
+    //public Text stunText;
+
+
+    public delegate void ShootAttack(RaycastHit2D playerHIt, Color attackColor);
+    public static event ShootAttack OnAttacking;
     private delegate void OnStateChange();
     private event OnStateChange onStateChange;
+    private Collider2D playerCollider;
     private Enums.PlayerStage state;
     private Enums.PlayerStage State
     {
@@ -19,54 +27,76 @@ public class Player : Shape {
     }
     private DetectTouch detectTouch;
 
-	private DigitalRubyShared.GestureTouch FirstTouch(ICollection<DigitalRubyShared.GestureTouch> touches)
-	{
-		foreach(DigitalRubyShared.GestureTouch touch in touches)
-		{
-			return touch;
-		}
-		return new DigitalRubyShared.GestureTouch();
-	}
-    public delegate int BoardChanged(int playerScore, Color playerColor);
-    public static event BoardChanged onCapture;
+    private DigitalRubyShared.GestureTouch FirstTouch(ICollection<DigitalRubyShared.GestureTouch> touches)
+    {
+        foreach (DigitalRubyShared.GestureTouch touch in touches)
+        {
+            return touch;
+        }
+        return new DigitalRubyShared.GestureTouch();
+    }
+    //public delegate int BoardChanged(int playerScore, Color playerColor);
+    //public static event BoardChanged onCapture;
 
 
     // Use this for initialization
-    new private void Awake()
+     private void Awake()
     {
-		base.Awake();
         detectTouch = this.gameObject.GetComponent<DetectTouch>();
     }
     new private void OnEnable()
     {
-		base.OnEnable();
+        base.OnEnable();
         detectTouch.onTouch += TouchHandler;
         onStateChange += StateHandler;
+        Shape_AI.OnShoot += ImHit;
     }
-   new private void OnDisable()
+    new private void OnDisable()
     {
-		base.OnDisable();
+        base.OnDisable();
         detectTouch.onTouch -= TouchHandler;
         onStateChange -= StateHandler;
     }
-    new void Start () {
-		base.Start();
-		state = Enums.PlayerStage.Neutral;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    private void TouchHandler(Vector2 position)
+    new void Start()
     {
-        if (State == Enums.PlayerStage.Neutral)
+        base.Start();
+        state = Enums.PlayerStage.Neutral;
+        playerCollider = this.gameObject.GetComponent<Collider2D>();
+        //TileManager.instance.AddColor(this.shapeColor);
+        GameManager2.Instance.AddPlayer(this.shapeColor, this);
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    private void TouchHandler(RaycastHit2D playerTouch)
+    {
+        if (State == Enums.PlayerStage.Neutral && canMove)
         {
-            this.transform.position = position;
-            State = Enums.PlayerStage.Expand;
+            //if (playerTouch)
+            //{
+
+            if (playerTouch.collider.gameObject.tag == "Player")
+                {
+                    //OnAttacking(playerTouch, shapeColor);
+                    //Debug.Log(playerTouch);
+                    //Shape_AI enemyPlayer = playerTouch.collider.GetComponent<Shape_AI>();     
+                    //Instantiate(stunShot, touchLocation, Quaternion.identity);
+                    //enemyPlayer.Stun();
+                }
+                else if (playerTouch.collider.gameObject.tag == "Tile")
+                {
+                    this.transform.position = playerTouch.transform.position;
+                    State = Enums.PlayerStage.Expand;
+                }
+
+            //}
         }
-        else
+        else if (canMove)
             State = Enums.PlayerStage.Fill;
     }
     private void StateHandler()
@@ -107,9 +137,39 @@ public class Player : Shape {
         }
         yield return new WaitForFixedUpdate();
         State = Enums.PlayerStage.Neutral;
-        score = onCapture(score, shapeColor);
+        //score = onCapture(score, shapeColor);
 
     }
 
+    private void OnCollisionEnter2D(Collision2D player)
+    {
+        if (player.gameObject.CompareTag("Player"))
+        {
+            Instantiate(stunprefab, this.transform.position, Quaternion.identity);
+            StopAllCoroutines();
+            StartCoroutine(Stun());
+        }
+    }
 
-}
+    private IEnumerator Stun()
+    {
+        canMove = false;
+        State = Enums.PlayerStage.Neutral;
+        this.fillShape.SetActive(false);
+        yield return new WaitForSeconds(collisionStunTime);
+        canMove = true;
+    }
+
+    private void ImHit(Collider2D playerHit, Color attackColor)
+    {
+
+        if (playerHit == playerCollider)
+        {
+            var attackingShot = stunShot.main;
+            attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+            Instantiate(stunShot, this.transform.position, Quaternion.identity);
+            StopAllCoroutines();
+            StartCoroutine(Stun());
+        }
+    }
+} 

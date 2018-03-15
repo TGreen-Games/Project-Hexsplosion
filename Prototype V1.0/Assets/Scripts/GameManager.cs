@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,7 @@ public class GameManager : MonoBehaviour {
     public delegate void SendScoreData(Dictionary <Color,int> playerScores);
     public static event SendScoreData sendToAI;
 	private Text[] scoreLabels;
-    private GameObject[] players;
+    private Dictionary<Color, GameObject> players = new Dictionary<Color, GameObject>();
     private Dictionary<Color, int> playerScores = new Dictionary<Color, int>();
     private GameObject[] grid;
 
@@ -23,14 +24,15 @@ public class GameManager : MonoBehaviour {
     private void OnEnable()
     {
         SceneManager.sceneLoaded += onSceneLoaded;
-        Player.onCapture += UpdatePlayerScore;
+        //Player.onCapture += UpdatePlayerScore;
         Timer.onGameOver += LoadScoreScreen;
-		Shape_AI.OnCapture += UpdateAiScore;
+		//Shape_AI.OnCapture += UpdateAiScore;
     }
     void Start () {
-        players = GameObject.FindGameObjectsWithTag("Player");
+        //players = GameObject.FindGameObjectsWithTag("Player");
+        GetPlayers();
         grid = GameObject.FindGameObjectsWithTag("Tile");
-        AddPlayerScores();
+        //AddPlayerScores();
     }
 	
 	// Update is called once per frame
@@ -64,14 +66,22 @@ public class GameManager : MonoBehaviour {
     //        i++;
     //    }
     //}
-
-
-    void AddPlayerScores(){
-		foreach(GameObject player in players){
-			var playerColor = player.GetComponent<SpriteRenderer> ().color;
-			playerScores.Add (playerColor, 0);
+    private void GetPlayers()
+    {
+        GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in allPlayers)
+        {
+            var playerColor = player.GetComponent<Shape>().shapeColor;
+            players.Add(playerColor,player);
         }
     }
+
+  //  void AddPlayerScores(){
+		//foreach(GameObject player in players){
+			//var playerColor = player.GetComponent<SpriteRenderer> ().color;
+			//playerScores.Add (playerColor, 0);
+    //    }
+    //}
 
     private void LoadScoreScreen()
     {
@@ -110,6 +120,18 @@ public class GameManager : MonoBehaviour {
 		playerScores [aiColor] = aiScore;
 		sendToAI (playerScores);
 	}
+
+    private void assignPlace(Color color)
+    {
+        int[] scores = new int[4];
+        playerScores.Values.CopyTo(scores, 0);
+        Array.Sort(scores);
+        for (int i = 1; i <= scores.Length; i++)
+        {
+            players[color].GetComponent<Shape>().place = i;
+        }
+    }
+
 
 
 		

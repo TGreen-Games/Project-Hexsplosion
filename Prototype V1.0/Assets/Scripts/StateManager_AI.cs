@@ -11,15 +11,15 @@ public class StateManager_AI : MonoBehaviour {
             if (aiState == value) return;
             aiState = value;
             if (onStateChanged != null)
-                onStateChanged();
+                onStateChanged(aiState);
         }
     }
     private Dictionary<Color, int> playerScores = new Dictionary<Color, int>();
     private int playerScore;
-    private int place;
+    public int place;
     private List<int> sortedScores = new List<int>();
     private Color playerColor;
-    public delegate void UpdateState();
+    public delegate void UpdateState(Enums.AiStage currentState);
     public event UpdateState onStateChanged;
 
 	private void Awake(){
