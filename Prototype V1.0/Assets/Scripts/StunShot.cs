@@ -5,7 +5,7 @@ using UnityEngine;
 public class StunShot : MonoBehaviour {
     public int attackThreshold = 50;
     private List<GameObject> capturedTiles = new List<GameObject>();
-    private Color playerColor;
+    private Shape player;
     private int chanceModifier = 0;
     private StateManager_AI currentState;
     private System.Random generateRandomNum;
@@ -13,7 +13,7 @@ public class StunShot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        playerColor = this.GetComponent<Shape>().shapeColor;
+        player = this.GetComponent<Shape>();
         currentState = this.GetComponent<StateManager_AI>();
         generateRandomNum = new System.Random(System.Environment.TickCount);
 	}
@@ -37,16 +37,16 @@ public class StunShot : MonoBehaviour {
        
     //}
 
-    public bool isAttacking(){
-        //GetCapturedTiles();
-        //AssignVariables();
-        //var randomNum = generateRandomNum.Next(0, 50);
-        //if (randomNum + chanceModifier > attackThreshold)
-        //    return true;
-        //else
-            return false;
+    //public bool isAttacking(){
+    //    GetCapturedTiles();
+    //    AssignVariables();
+    //    var randomNum = generateRandomNum.Next(0, 50);
+    //    if (randomNum + chanceModifier > attackThreshold)
+    //        return true;
+    //    else
+    //        return false;
 
-    }
+    //}
 
    
     public GameObject SelectTile(){
@@ -75,5 +75,20 @@ public class StunShot : MonoBehaviour {
             chanceModifier = 5;
     }
 
+    private Shape FindTarget(){
+        Shape[] possibleTargets = { };
+        int i = 0;
+        foreach(var enemy in GameManager2.Instance.players.Values)
+        {
+            if (enemy.place >= player.place)
+            {
+                possibleTargets[i] = enemy;
+                i++;
+            }
+            else
+                continue;
+        }
+        return possibleTargets[generateRandomNum.Next(0, possibleTargets.Length - 1)];
+    }
 
 }

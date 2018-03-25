@@ -38,6 +38,19 @@ public class TileManager : MonoBehaviour
     {
 
     }
+
+    //TODO: Make method that detects when tile changes and notifies the GamemManager
+
+    public void TileChanged(Color previousColor, Color newColor)
+    {
+        GameManager2.Instance.MinusScore(previousColor);
+        GameManager2.Instance.AddScore(newColor);
+    }
+    public void TileChanged(Color newColor)
+    {
+        GameManager2.Instance.AddScore(newColor);
+    }
+
     //public void AddColor(Color playerColor)
     //{
     //    capturedTiles.Add(playerColor, new List<GameObject>());
@@ -74,19 +87,7 @@ public class TileManager : MonoBehaviour
         //    }
 
         //}
-    public void MinusTile(GameObject tile,Color playerColor)
-    {
-        GameManager2.Instance.MinusScore(playerColor);
-        //if (capturedTiles.ContainsKey(playerColor))
-        //{
-        //    for (int i = 0; 0 < capturedTiles[playerColor].Count; i++)
-        //    {
-        //        capturedTiles[playerColor].Remove(tile);
-        //        GameManager2.Instance.MinusScore(playerColor);
-        //        Debug.Log(("score minused!"));
-        //    }
-        //}
-    }
+   
 
 
 }

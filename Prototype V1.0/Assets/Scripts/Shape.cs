@@ -18,6 +18,7 @@ public class Shape : MonoBehaviour
     protected bool canMove = true;
     protected bool isStunned = false;
     protected Vector3 scale;
+    protected List<GameObject> capturedTiles;
 
     // Use this for initialization
 
@@ -31,9 +32,8 @@ public class Shape : MonoBehaviour
     }
     protected void Start()
     {
-        Debug.Log(fillShape);
         scale = this.transform.localScale;
-        Debug.Log("Yhis Happened!!!!");
+        capturedTiles = new List<GameObject>();
     }
 
 

@@ -17,15 +17,7 @@ public class Tile : MonoBehaviour {
         originalColor = tileImage.color;    
 	}
 
-    private void OnMouseDown()
-    {
-        Debug.Log("I'm hit!");
-    }
-
-    // Update is called once per frame
-    void Update () {
-	}
-
+   
     private void OnTriggerStay2D(Collider2D player)
     {
 		if (player.gameObject.CompareTag ("Fill Shape")) 
@@ -33,17 +25,20 @@ public class Tile : MonoBehaviour {
 
 			if (player.GetComponent<FillShape> ().CanCapture) 
 			{
-                if(tileImage.color != originalColor)
-                {
-                    TileManager.instance.MinusTile(this.gameObject,tileImage.color);
-                }
                 playerColor = player.GetComponent<SpriteRenderer>().color;
+                if(tileImage.color == originalColor)
+                {
+                    TileManager.instance.TileChanged(playerColor);
+                }
+                else
+                {
+                    TileManager.instance.TileChanged(tileImage.color, playerColor);
+                }
 				tileImage.color = playerColor;
-                TileManager.instance.AddTile(this.gameObject, playerColor);
 			}
 		}
             
-        }
+      }
 
     //private void OnTriggerEnter2D(Collider2D collision)
     //{

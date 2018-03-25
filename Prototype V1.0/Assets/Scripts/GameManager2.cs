@@ -41,4 +41,6 @@ public class GameManager2 : MonoBehaviour {
     {
         players[playerColor].score--;
     }
+
+    //Figure out a way for the ai to shoot stun!!!
 }

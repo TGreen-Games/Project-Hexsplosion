@@ -77,16 +77,16 @@ public class Player : Shape
     {
         if (State == Enums.PlayerStage.Neutral && canMove)
         {
-            //if (playerTouch)
-            //{
+            if (playerTouch)
+            {
 
             if (playerTouch.collider.gameObject.tag == "Player")
                 {
-                    //OnAttacking(playerTouch, shapeColor);
-                    //Debug.Log(playerTouch);
-                    //Shape_AI enemyPlayer = playerTouch.collider.GetComponent<Shape_AI>();     
-                    //Instantiate(stunShot, touchLocation, Quaternion.identity);
-                    //enemyPlayer.Stun();
+                    OnAttacking(playerTouch, shapeColor);
+                    Debug.Log(playerTouch);
+                    Shape_AI enemyPlayer = playerTouch.collider.GetComponent<Shape_AI>();
+                    Instantiate(stunShot, playerTouch.transform.position, Quaternion.identity);
+                    enemyPlayer.Stun();
                 }
                 else if (playerTouch.collider.gameObject.tag == "Tile")
                 {
@@ -94,7 +94,11 @@ public class Player : Shape
                     State = Enums.PlayerStage.Expand;
                 }
 
-            //}
+            }
+            else
+            {
+                Debug.Log("you missed!");
+            }
         }
         else if (canMove)
             State = Enums.PlayerStage.Fill;
