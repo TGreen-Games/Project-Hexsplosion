@@ -63,7 +63,7 @@ public class Player : Shape
         state = Enums.PlayerStage.Neutral;
         playerCollider = this.gameObject.GetComponent<Collider2D>();
         //TileManager.instance.AddColor(this.shapeColor);
-        GameManager2.Instance.AddPlayer(this.shapeColor, this);
+
 
     }
 
@@ -164,7 +164,7 @@ public class Player : Shape
         canMove = true;
     }
 
-    private void ImHit(Collider2D playerHit, Color attackColor)
+    private void ImHit(Shape playerHit, Color attackColor)
     {
 
         if (playerHit == playerCollider)

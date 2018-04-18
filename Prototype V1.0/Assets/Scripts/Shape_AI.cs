@@ -13,7 +13,7 @@ public class Shape_AI : Shape
     public int bravery = 100;
     public int braveryLimit = 50;
     //public int seed;
-    public delegate void ShootAttack(Collider2D playerHit, Color attackingColor);
+    public delegate void ShootAttack(Shape playerHit, Color attackingColor);
     public static event ShootAttack OnShoot;
     //public delegate void BoardChanged(int aiScore, Color color);
     //public static event BoardChanged OnCapture;
@@ -27,7 +27,6 @@ public class Shape_AI : Shape
     // make random seed for script
     private void Awake()
     {
-       ;
         actionindicator = this.gameObject.GetComponent<StateManager_AI>();
         shotScript = this.GetComponent<StunShot>();
     }
@@ -48,8 +47,8 @@ public class Shape_AI : Shape
         actionindicator.AiState = Enums.AiStage.Neutral;
         StartCoroutine(Action());
         //TileManager.instance.AddColor(shapeColor);
-        GameManager2.Instance.AddPlayer(shapeColor, this);
-       
+
+
 
 
     }
@@ -68,17 +67,11 @@ public class Shape_AI : Shape
         {
             waitTime = generateRandomNum.Next(1, 3);
             if (shotScript.isAttacking())
-            {
 
-                var tile = shotScript.SelectTile();
-                if (tile == null)
-                    break;
-                var hitPlayer = isPlayerDetected(tile.transform.position, detectionRadius);
-                if (hitPlayer != null)
-                {
-                    OnShoot(hitPlayer, shapeColor);
-                    Debug.Log("I just shot! My color is: " + shapeColor);
-                }
+            {
+                var hitPlayer = shotScript.FindTarget();
+                OnShoot(hitPlayer, shapeColor);
+                Debug.Log("I just shot! My color is: " + shapeColor);
             }
             else if (canMove)
             {
@@ -220,10 +213,9 @@ public class Shape_AI : Shape
         }
     }
 
-    private void imAttacking(Collider2D hitPlayer, Color attackColor)
+    private void imAttacking(Shape hitPlayer, Color attackColor)
     {
-        var myCollider = this.GetComponent<Collider2D>();
-        if (hitPlayer == myCollider)
+        if (hitPlayer == this)
         {
             var attackingShot = stunShot.main;
             attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);

@@ -25,6 +25,8 @@ public class Shape : MonoBehaviour
     protected void OnEnable()
     {
         shapeColor = this.GetComponent<SpriteRenderer>().color;
+        GameManager2.Instance.AddPlayer(shapeColor, this);
+        Debug.Log("We runnning now");
     }
     protected void OnDisable()
     {
@@ -34,6 +36,7 @@ public class Shape : MonoBehaviour
     {
         scale = this.transform.localScale;
         capturedTiles = new List<GameObject>();
+     
     }
 
 
@@ -45,6 +48,8 @@ public class Shape : MonoBehaviour
     //    yield return new WaitForSeconds(collisionStunTime);
     //    canMove = true;
     //}
+
+
 }
        
 

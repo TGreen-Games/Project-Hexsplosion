@@ -10,12 +10,16 @@ public class StunShot : MonoBehaviour {
     private StateManager_AI currentState;
     private System.Random generateRandomNum;
 
-
+	private void OnEnable()
+	{
+        player = this.GetComponent<Shape>();
+        Debug.Log("This method ran!!! yaaaaaay");
+        generateRandomNum = new System.Random(System.Environment.TickCount);
+	}
 	// Use this for initialization
 	void Start () {
-        player = this.GetComponent<Shape>();
-        currentState = this.GetComponent<StateManager_AI>();
-        generateRandomNum = new System.Random(System.Environment.TickCount);
+
+       
 	}
 	
 	// Update is called once per frame
@@ -37,32 +41,33 @@ public class StunShot : MonoBehaviour {
        
     //}
 
-    //public bool isAttacking(){
-    //    GetCapturedTiles();
-    //    AssignVariables();
-    //    var randomNum = generateRandomNum.Next(0, 50);
-    //    if (randomNum + chanceModifier > attackThreshold)
-    //        return true;
-    //    else
-    //        return false;
+    public bool isAttacking(){
+     
+        AssignVariables();
+        var randomNum = generateRandomNum.Next(0, 50);
+        if (randomNum + chanceModifier > attackThreshold)
+            return true;
+        else
+            return false;
 
-    //}
-
-   
-    public GameObject SelectTile(){
-        if (capturedTiles != null)
-        {
-            var tile = capturedTiles[generateRandomNum.Next(0, capturedTiles.Count - 1)];
-            capturedTiles.Clear();
-            chanceModifier = 0;
-            return tile;
-        }
-        else return null;
-
-       
     }
 
+   
+    //public GameObject SelectTile(){
+    //    if (capturedTiles != null)
+    //    {
+    //        var tile = capturedTiles[generateRandomNum.Next(0, capturedTiles.Count - 1)];
+    //        capturedTiles.Clear();
+    //        chanceModifier = 0;
+    //        return tile;
+    //    }
+    //    else return null;
+
+       
+    //}
+
     private void AssignVariables(){
+        currentState = this.GetComponent<StateManager_AI>();
         if (currentState.AiState == Enums.AiStage.Attack)
         {
             chanceModifier = 0;
@@ -75,12 +80,15 @@ public class StunShot : MonoBehaviour {
             chanceModifier = 5;
     }
 
-    private Shape FindTarget(){
-        Shape[] possibleTargets = { };
+    public Shape FindTarget(){
+        Shape[] possibleTargets = new Shape[3];
+        Shape[] players = new Shape[4];
+        GameManager2.Instance.players.Values.CopyTo(players, 0);
         int i = 0;
-        foreach(var enemy in GameManager2.Instance.players.Values)
+        foreach(Shape enemy in players)
         {
-            if (enemy.place >= player.place)
+           
+            if (enemy.place >= player.place && enemy.gameObject != this.gameObject)
             {
                 possibleTargets[i] = enemy;
                 i++;
@@ -88,7 +96,8 @@ public class StunShot : MonoBehaviour {
             else
                 continue;
         }
-        return possibleTargets[generateRandomNum.Next(0, possibleTargets.Length - 1)];
+      
+        return possibleTargets[generateRandomNum.Next(0, players.Length)];
     }
 
 }
