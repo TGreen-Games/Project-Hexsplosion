@@ -97,7 +97,7 @@ public class StunShot : MonoBehaviour {
                 continue;
         }
       
-        return possibleTargets[generateRandomNum.Next(0, players.Length)];
+        return possibleTargets[generateRandomNum.Next(0, possibleTargets.Length)];
     }
 
 }

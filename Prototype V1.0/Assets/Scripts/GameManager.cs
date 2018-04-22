@@ -121,16 +121,16 @@ public class GameManager : MonoBehaviour {
 		sendToAI (playerScores);
 	}
 
-    private void assignPlace(Color color)
-    {
-        int[] scores = new int[4];
-        playerScores.Values.CopyTo(scores, 0);
-        Array.Sort(scores);
-        for (int i = 1; i <= scores.Length; i++)
-        {
-            players[color].GetComponent<Shape>().place = i;
-        }
-    }
+    //private void assignPlace(Color color)
+    //{
+    //    int[] scores = new int[4];
+    //    playerScores.Values.CopyTo(scores, 0);
+    //    Array.Sort(scores);
+    //    for (int i = 1; i <= scores.Length; i++)
+    //    {
+    //        players[color].GetComponent<Shape>().place = i;
+    //    }
+    //}
 
 
 

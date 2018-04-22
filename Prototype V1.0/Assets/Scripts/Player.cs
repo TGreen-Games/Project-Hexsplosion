@@ -70,7 +70,7 @@ public class Player : Shape
     // Update is called once per frame
     void Update()
     {
-
+        base.Update();
     }
 
     private void TouchHandler(RaycastHit2D playerTouch)
@@ -82,11 +82,21 @@ public class Player : Shape
 
             if (playerTouch.collider.gameObject.tag == "Player")
                 {
-                    OnAttacking(playerTouch, shapeColor);
-                    Debug.Log(playerTouch);
-                    Shape_AI enemyPlayer = playerTouch.collider.GetComponent<Shape_AI>();
-                    Instantiate(stunShot, playerTouch.transform.position, Quaternion.identity);
-                    enemyPlayer.Stun();
+                    if (canShoot)
+                    {
+                        OnAttacking(playerTouch, shapeColor);
+                        Debug.Log(playerTouch);
+                        Shape_AI enemyPlayer = playerTouch.collider.GetComponent<Shape_AI>();
+                        Instantiate(stunShot, playerTouch.transform.position, Quaternion.identity);
+                        canShoot = false;
+                        enemyPlayer.Stun();
+                    }
+                    else
+                    {
+                        
+                        StartCoroutine(cooldownTimer(shotCooldown));
+                    }
+                        
                 }
                 else if (playerTouch.collider.gameObject.tag == "Tile")
                 {

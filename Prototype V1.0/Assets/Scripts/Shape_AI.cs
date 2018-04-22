@@ -56,6 +56,7 @@ public class Shape_AI : Shape
     // Update is called once per frame
     void Update()
     {
+        base.Update();
     }
 
     //private void UpdateState(Enums.AiStage currentState){
@@ -215,15 +216,18 @@ public class Shape_AI : Shape
 
     private void imAttacking(Shape hitPlayer, Color attackColor)
     {
-        if (hitPlayer == this)
+        if (hitPlayer == this && canShoot)
         {
             var attackingShot = stunShot.main;
             attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
             Instantiate(stunShot, this.transform.position, Quaternion.identity);
             StopAllCoroutines();
+            canShoot = false;
             StartCoroutine(Stun());
 
         }
+
+        StartCoroutine(cooldownTimer(shotCooldown));
     }
 
 }

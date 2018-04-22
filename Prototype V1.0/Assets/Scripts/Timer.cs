@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class Timer : MonoBehaviour
             timerLabel.text = string.Format("{0:00} : {1:00}", minutes, seconds);
             yield return new WaitForSeconds(1);
         }
-        onGameOver();
+        SceneManager.LoadScene(1);
         Debug.Log("Scene change activated!!!");
     }
 }

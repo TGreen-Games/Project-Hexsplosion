@@ -26,7 +26,7 @@ public class StateManager_AI : MonoBehaviour {
 	}
 
 	private void OnEnable(){
-		GameManager.sendToAI += RecievePlayerScores;
+        GameManager2.NotifyAi += assignPlace;
 	}
 
 	// Use this for initialization
@@ -40,18 +40,25 @@ public class StateManager_AI : MonoBehaviour {
 		
 	}
 
-    public void RecievePlayerScores(Dictionary <Color, int> updatedScores)
-    {
-		playerScores = updatedScores;
-		assignPlace();
-        assignState();
-    }
+  //  public void RecievePlayerScores(Dictionary <Color, int> updatedScores)
+  //  {
+		//playerScores = updatedScores;
+		//assignPlace();
+    //    assignState();
+    //}
 
-	private void assignPlace(){
-		place = 1;
-		foreach (int score in playerScores.Values) {
-			if (playerScore < score)
-				place++;
+    private void assignPlace(Color color){
+
+        if(playerColor == color){
+            place = 1;
+            foreach (Shape player in GameManager2.Instance.players.Values)
+            {
+                int score = player.score;
+                if (playerScore < score)
+                    place++;
+            }
+
+            this.GetComponent<Shape>().place = place;
 		}
 
 	}
