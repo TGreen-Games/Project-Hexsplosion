@@ -101,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1216392651182992}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.67, y: -4.49, z: 0}
+  m_LocalPosition: {x: -2.29, y: 4.7, z: 0}
   m_LocalScale: {x: 0.00959232, y: 0.008467683, z: 1}
   m_Children: []
   m_Father: {fileID: 4563569968727158}
@@ -205,14 +205,16 @@ MonoBehaviour:
   scaleRate: 0.01
   scaleSpeed: 0.1
   collisionStunTime: 5
+  shotCooldown: 5
   stunprefab: {fileID: 19870958, guid: 37529a8d3a3aaf7498b62309b1c015ab, type: 2}
   stunShot: {fileID: 19841060, guid: c11ec31625295454988054caf01a8f1e, type: 2}
   shapeColor: {r: 0, g: 0, b: 0, a: 0}
   score: 0
   place: 0
+  attackMe: {fileID: 0}
   detectionRadius: 0.5
   waitTime: 3
-  bravery: 100
+  bravery: 50
   braveryLimit: 60
 --- !u!114 &114656375921500418
 MonoBehaviour:
@@ -237,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451bf958836554921917b14734d45942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackThreshold: 100
+  attackThreshold: 50
 --- !u!212 &212284542548359428
 SpriteRenderer:
   m_ObjectHideFlags: 1

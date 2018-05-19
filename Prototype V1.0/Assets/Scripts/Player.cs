@@ -89,7 +89,7 @@ public class Player : Shape
                         Shape_AI enemyPlayer = playerTouch.collider.GetComponent<Shape_AI>();
                         Instantiate(stunShot, playerTouch.transform.position, Quaternion.identity);
                         canShoot = false;
-                        enemyPlayer.Stun();
+                        //enemyPlayer.Stun();
                     }
                     else
                     {
@@ -173,7 +173,7 @@ public class Player : Shape
         yield return new WaitForSeconds(collisionStunTime);
         canMove = true;
     }
-
+    
     private void ImHit(Shape playerHit, Color attackColor)
     {
 
@@ -181,7 +181,7 @@ public class Player : Shape
         {
             var attackingShot = stunShot.main;
             attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
-            Instantiate(stunShot, this.transform.position, Quaternion.identity);
+			Instantiate(stunShot, this.transform.position, Quaternion.identity);
             StopAllCoroutines();
             StartCoroutine(Stun());
         }

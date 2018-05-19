@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class GameManager2 : MonoBehaviour
 {
@@ -84,21 +85,28 @@ public class GameManager2 : MonoBehaviour
     private void DisplayScores()
     {
         Color winningColor = Color.black;
-        var highestScore = 0;
         scoreLabels = FindObjectsOfType<Text>();
+		int[] sortedScores = new int[4];
+		var i = 0;
         foreach (var player in players.Values)
         {
-            var temp = player.score;
-            if (temp > highestScore){
-                highestScore = temp;
-                winningColor = player.shapeColor;
-
-            }
-                
-            
+			sortedScores[i] = player.score;
+			i++;
         }
-        scoreLabels[0].color = winningColor;
-        scoreLabels[0].text = highestScore.ToString();
-    }
+		Array.Sort(sortedScores);
+		Array.Reverse(sortedScores);
+		for (int k = 0; k < sortedScores.Length; k++)
+			scoreLabels[k].text = sortedScores[k].ToString();
+		foreach (Shape player in players.Values)
+        {
+            var playerScore = player.score;
+			for (int t = 0; t < scoreLabels.Length; t++)
+            {
+                if (sortedScores[t] == playerScore && scoreLabels[t].color != player.shapeColor)
+                    scoreLabels[t].color = player.shapeColor;
+            }
+
+        }
+	}
 
 }

@@ -127,7 +127,7 @@ db5cd4d6c4f5c229b6c8060c96c09937 Assembly-CSharp.dll:.ReceiveMaterialChangeByHit
 6dd41b7ce79f2a4b91d2542566b151a7 Assembly-CSharp.dll:DigitalRubyShared.DemoScriptDPad
 c4b1b833c84d1e611fec98f6a832335a Assembly-CSharp.dll:.FillShape
 e6b2ebfb13e718e9e58f899743efdf84 Assembly-CSharp.dll:DigitalRubyShared.DemoScriptZoomableScrollView
-160bf70a265d3231c7c1709fde6ee4a2 Assembly-CSharp.dll:.Shape
+9cd024702b484819cd1a9c51c05c668f Assembly-CSharp.dll:.Shape
 d1783776c5ddc911fab72f7b21b0e5bb Assembly-CSharp.dll:DigitalRubyShared.DemoScriptPlatformSpecificView
 3707f9553b1fab8c060ce1aa562906c4 Assembly-CSharp.dll:.StunShot
 2c5a2b178cd68d9064f99deed9d7bf1e Assembly-CSharp.dll:.CameraNavigator
@@ -150,7 +150,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 d909e83b9d6b1f25888cff58530f07aa Assembly-CSharp.dll:.StateManager_AI
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:DigitalRubyShared.AsteroidScript
 1687b69288d373128ca79d12847b2200 Assembly-CSharp.dll:.Timer
-160bf70a265d3231c7c1709fde6ee4a2 Assembly-CSharp.dll:.Player
+9cd024702b484819cd1a9c51c05c668f Assembly-CSharp.dll:.Player
 033ed4e95ad40ae0669ce9aa06b05390 Assembly-CSharp.dll:.Test
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 2a56361227def9f56c2cf57a88b32f4d UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
@@ -172,6 +172,7 @@ b30ff7dc52d315c5c662983a2e22145a Assembly-CSharp.dll:DigitalRubyShared.DemoScrip
 f555687441694e2e50eeeb0b42df1a94 Assembly-CSharp.dll:DigitalRubyShared.DemoScriptSwipe
 079086b44a0521911952c90c33896fa4 Assembly-CSharp.dll:.Hit
 024ccac1f1d487d84917f67f53184310 Assembly-CSharp.dll:FlyingWormConsole3.ConsoleProRemoteServer
-8cdf642f5b0496521338cdcae8b960b1 Assembly-CSharp.dll:.Shape_AI
+1b0b9376ed6dbee5915f580ba01c7050 Assembly-CSharp.dll:.Shape_AI
 b42f786d9d54e04c31425ba9dad200d3 Assembly-CSharp.dll:.MultiParticleSystemSpawner
 058dffd39719f0478c42d4800a4d2e77 Assembly-CSharp.dll:.UpDown
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Buttons

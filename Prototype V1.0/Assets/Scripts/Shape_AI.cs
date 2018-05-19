@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Shape_AI : Shape
 {
-
+	public Shape attackMe;
     private StateManager_AI actionindicator;
     private List<GameObject> grid;
     public float detectionRadius = 1;
@@ -67,12 +67,13 @@ public class Shape_AI : Shape
         while (true)
         {
             waitTime = generateRandomNum.Next(1, 3);
-            if (shotScript.isAttacking())
+			if (shotScript.isAttacking() && canShoot)
 
             {
                 var hitPlayer = shotScript.FindTarget();
-                OnShoot(hitPlayer, shapeColor);
-                Debug.Log("I just shot! My color is: " + shapeColor);
+				OnShoot(hitPlayer, shapeColor);
+				canShoot = false;
+                Debug.Log("I just shot! My color is: " + shapeColor.ToString());
             }
             else if (canMove)
             {

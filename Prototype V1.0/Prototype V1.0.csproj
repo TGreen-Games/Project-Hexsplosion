@@ -14,6 +14,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile></TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
@@ -310,6 +311,7 @@
     <Compile Include="Assets\Mezanix\MezanixFX_Free_1_1\2_Scripts\4_Helpers\Test.cs" />
     <Compile Include="Assets\Mezanix\MezanixFX_Free_1_1\Demo\CameraNavigator.cs" />
     <Compile Include="Assets\Mezanix\MezanixFX_Free_1_1\Demo\GetActivePArticleSystemName.cs" />
+    <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\DetectTouch.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\FillShape.cs" />
