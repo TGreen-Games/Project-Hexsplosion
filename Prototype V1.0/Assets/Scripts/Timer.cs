@@ -10,11 +10,13 @@ public class Timer : MonoBehaviour
     public static event GameOver onGameOver;
     public Text timerLabel;
     public float time;
-
+    
     // Use this for initialization
     void Start()
     {
+        
         StartCoroutine(timer());
+        
     }
 
     // Update is called once per frame
@@ -22,15 +24,19 @@ public class Timer : MonoBehaviour
     {
 
     }
-
-    IEnumerator timer()
+    
+    IEnumerator timer() 
     {
-
+    
         while (time > 0)
         {
             time--;
-            var minutes = time / 60;
+            int minutes = (int)time / 60;
+            if (time <= 60)
+                minutes = 0;
             var seconds = time % 60;
+            if (minutes < 1)
+                timerLabel.text = seconds.ToString();
             timerLabel.text = string.Format("{0:00} : {1:00}", minutes, seconds);
             yield return new WaitForSeconds(1);
         }

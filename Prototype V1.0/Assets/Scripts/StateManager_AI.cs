@@ -65,9 +65,9 @@ public class StateManager_AI : MonoBehaviour {
 
     private void assignState()
     {
-		if (place == 1)
+		if ( playerScore >= 130)
 			AiState = Enums.AiStage.Defence;
-		else if (place == 4)
+		else if (playerScore >= 50 )
 			AiState = Enums.AiStage.Attack;
 		else
 			AiState = Enums.AiStage.Neutral;

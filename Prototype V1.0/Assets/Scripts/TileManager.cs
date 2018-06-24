@@ -20,7 +20,8 @@ public class TileManager : MonoBehaviour
 
         // Here we save our singleton instance
         instance = this;
-        //grid = gameObject.GetComponentsInChildren<Tile>();
+		//grid = gameObject.GetComponentsInChildren<Tile>();
+		DontDestroyOnLoad(instance);
     }
     private void OnEnable()
     {

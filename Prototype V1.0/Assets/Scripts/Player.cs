@@ -12,6 +12,7 @@ public class Player : Shape
     public static event ShootAttack OnAttacking;
     private delegate void OnStateChange();
     private event OnStateChange onStateChange;
+  
     private Collider2D playerCollider;
     private Enums.PlayerStage state;
     private Enums.PlayerStage State
@@ -121,7 +122,7 @@ public class Player : Shape
                 StartCoroutine(Expand());
                 break;
             case Enums.PlayerStage.Neutral:
-                this.transform.localScale = scale;
+                this.transform.localScale = startingScale;
                 break;
             case Enums.PlayerStage.Fill:
                 StartCoroutine(Fill());
@@ -151,6 +152,7 @@ public class Player : Shape
         }
         yield return new WaitForFixedUpdate();
         State = Enums.PlayerStage.Neutral;
+		IsGreedy = false;
         //score = onCapture(score, shapeColor);
 
     }
@@ -177,13 +179,16 @@ public class Player : Shape
     private void ImHit(Shape playerHit, Color attackColor)
     {
 
-        if (playerHit == playerCollider)
+        if (playerHit == this)
         {
             var attackingShot = stunShot.main;
             attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
 			Instantiate(stunShot, this.transform.position, Quaternion.identity);
             StopAllCoroutines();
             StartCoroutine(Stun());
+			IsGreedy = false;
         }
     }
+
+
 } 

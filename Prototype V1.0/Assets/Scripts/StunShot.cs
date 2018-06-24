@@ -105,6 +105,6 @@ public class StunShot : MonoBehaviour
             }
                       
         }
-        return possibleTargets[1];
+		return possibleTargets[generateRandomNum.Next(0,possibleTargets.Length-1)];
     }
 }
