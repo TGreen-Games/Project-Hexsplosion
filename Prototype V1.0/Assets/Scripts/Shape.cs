@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class Shape : MonoBehaviour
 {
     public GameObject fillShape;
-    public float scaleRate = 0.001f;
-    public float scaleSpeed = 0.1f;
+    public float scaleRate = 0.002f;
+    public float scaleSpeed = 0.2f;
     public float collisionStunTime = 5.0f;
-    public float shotCooldown = 5.0f;
+    public float shotCooldown = 12.0f;
     public ParticleSystem stunprefab;
     public ParticleSystem stunShot;
     public Color shapeColor;
@@ -56,7 +56,7 @@ public class Shape : MonoBehaviour
 			//Debug.Log( this.transform.parent.name + " Sorry cant shoot yet. Heres how much time you have left " + shotCooldown);
             if (shotCooldown <= 0){
                 canShoot = true;
-                shotCooldown = 5.0f;
+				shotCooldown = 12.0f;
             }          
                 
         }
@@ -88,7 +88,7 @@ public class Shape : MonoBehaviour
     protected IEnumerator cooldownTimer ( float cooldown)
     {
         yield return new WaitUntil(() => canShoot == true);
-        shotCooldown = 5;
+        shotCooldown = 12.0f;
 
     }
 

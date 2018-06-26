@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class Player : Shape
 {
-    //public Text stunText;
+	//public Text stunText;
 
-
+	public Text coolDown;
     public delegate void ShootAttack(RaycastHit2D playerHIt, Color attackColor);
     public static event ShootAttack OnAttacking;
     private delegate void OnStateChange();
@@ -72,6 +72,7 @@ public class Player : Shape
     void Update()
     {
         base.Update();
+		coolDown.text = shotCooldown.ToString();
     }
 
     private void TouchHandler(RaycastHit2D playerTouch)

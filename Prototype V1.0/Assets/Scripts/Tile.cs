@@ -28,11 +28,11 @@ public class Tile : MonoBehaviour {
                 playerColor = player.GetComponent<SpriteRenderer>().color;
                 if(tileImage.color == originalColor)
                 {
-                    TileManager.instance.TileChanged(playerColor);
+                    TileManager.Instance.TileChanged(playerColor);
                 }
                 else
                 {
-                    TileManager.instance.TileChanged(tileImage.color, playerColor);
+                    TileManager.Instance.TileChanged(tileImage.color, playerColor);
                 }
 				tileImage.color = playerColor;
 			}

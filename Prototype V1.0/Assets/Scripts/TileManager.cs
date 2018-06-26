@@ -6,22 +6,17 @@ using UnityEngine.UI;
 
 public class TileManager : MonoBehaviour
 {
-    public static TileManager instance { get; private set; }
+	public static TileManager Instance
+    {
+		get { return instance ?? (instance = new GameObject("TileManager").AddComponent<TileManager>()); }
+    }
+	private static TileManager instance;
     //public Dictionary<Color, List<GameObject>> capturedTiles = new Dictionary<Color, List<GameObject>>();
     private Tile[] grid;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            // If that is the case, we destroy other instances
-            Destroy(gameObject);
-        }
-
-        // Here we save our singleton instance
-        instance = this;
-		//grid = gameObject.GetComponentsInChildren<Tile>();
-		DontDestroyOnLoad(instance);
+		DontDestroyOnLoad(gameObject);
     }
     private void OnEnable()
     {
@@ -40,7 +35,7 @@ public class TileManager : MonoBehaviour
 
     }
 
-    //TODO: Make method that detects when tile changes and notifies the GamemManager
+ 
 
     public void TileChanged(Color previousColor, Color newColor)
     {

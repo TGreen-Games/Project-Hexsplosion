@@ -212,8 +212,8 @@ MonoBehaviour:
   score: 0
   place: 0
   attackMe: {fileID: 0}
+  actionindicator: {fileID: 0}
   detectionRadius: 0.5
-  waitTime: 3
   bravery: 150
   braveryLimit: 80
 --- !u!114 &114656375921500418
@@ -319,7 +319,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c3485218797390343be5bba58a582e9f, type: 3}
-  m_Color: {r: 0.9117647, g: 0.7564133, b: 0.71064013, a: 1}
+  m_Color: {r: 1, g: 0.88965523, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

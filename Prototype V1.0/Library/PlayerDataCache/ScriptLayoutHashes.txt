@@ -151,7 +151,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 d909e83b9d6b1f25888cff58530f07aa Assembly-CSharp.dll:.StateManager_AI
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:DigitalRubyShared.AsteroidScript
 1687b69288d373128ca79d12847b2200 Assembly-CSharp.dll:.Timer
-9cd024702b484819cd1a9c51c05c668f Assembly-CSharp.dll:.Player
+dc4b4499d3568cf739c5e98f81589bc2 Assembly-CSharp.dll:.Player
 033ed4e95ad40ae0669ce9aa06b05390 Assembly-CSharp.dll:.Test
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 2a56361227def9f56c2cf57a88b32f4d UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController

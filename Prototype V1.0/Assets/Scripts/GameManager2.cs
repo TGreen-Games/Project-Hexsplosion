@@ -78,6 +78,7 @@ public class GameManager2 : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             DisplayScores();
+			players.Clear();
         }
 
     }

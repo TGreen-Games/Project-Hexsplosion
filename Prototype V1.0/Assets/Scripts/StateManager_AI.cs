@@ -10,6 +10,7 @@ public class StateManager_AI : MonoBehaviour {
         set{
             if (aiState == value) return;
             aiState = value;
+			Debug.Log("My state chaneged its this " + aiState);
             if (onStateChanged != null)
                 onStateChanged(aiState);
         }
@@ -58,7 +59,7 @@ public class StateManager_AI : MonoBehaviour {
                     place++;
             }
 
-            this.GetComponent<Shape>().place = place;
+            //this.GetComponent<Shape>().place = place;
 		}
 
 	}
