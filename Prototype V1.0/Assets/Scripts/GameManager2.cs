@@ -22,17 +22,23 @@ public class GameManager2 : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+		DontDestroyOnLoad(gameObject);
     }
 
 	private void OnEnable()
 	{
+		
         SceneManager.sceneLoaded += onSceneLoaded;
+	}
+
+	private void OnDisable()
+	{
+		SceneManager.sceneLoaded -= onSceneLoaded;
 	}
 	// Use this for initialization
 	void Start()
     {
-
+		
     }
 
     // Update is called once per frame
@@ -69,13 +75,13 @@ public class GameManager2 : MonoBehaviour
     //            t++;
 
     //        }
-
+    
     //    }
     //}
 
     private void onSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             DisplayScores();
 			players.Clear();

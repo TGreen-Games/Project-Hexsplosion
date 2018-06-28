@@ -15,6 +15,7 @@ public class Shape : MonoBehaviour
     public Color shapeColor;
     public int score;
     public int place;
+	public Text coolDown;
 	protected Vector2 sizeLimiter = new Vector2(0.1608f, 0.1546f);
 	protected delegate void ImGreedy( Shape greedyPlayer, bool isGreedy);
 	protected static event ImGreedy OnGreed;
@@ -65,6 +66,10 @@ public class Shape : MonoBehaviour
 		{
 			IsGreedy = true;
 		}
+		if (shotCooldown == 12.0)
+			coolDown.text = "Stun Ready";
+		else
+			coolDown.text = shotCooldown.ToString();
 
 
 	}
@@ -72,6 +77,7 @@ public class Shape : MonoBehaviour
     {
         startingScale = this.transform.localScale;
         capturedTiles = new List<GameObject>();
+		coolDown.color = shapeColor;
      
     }
 

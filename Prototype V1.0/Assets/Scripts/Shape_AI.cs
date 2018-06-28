@@ -39,6 +39,13 @@ public class Shape_AI : Shape
 		Shape.OnGreed += priorityShot;      //seed = System.Environment.TickCount + this.gameObject.GetHashCode();
 
 	}
+
+	private void OnDestroy()
+	{
+		Player.OnAttacking -= humanPlayerHitMe;
+		Shape_AI.OnShoot -= aiPLayerHitMe;
+		Shape.OnGreed -= priorityShot;
+	}
 	new private void Start()
 	{
 		base.Start();
@@ -48,10 +55,6 @@ public class Shape_AI : Shape
 		actionindicator.AiState = Enums.AiStage.Neutral;
 		StartCoroutine(Action());
 		//TileManager.instance.AddColor(shapeColor);
-
-
-
-
 	}
 
 	// Update is called once per frame

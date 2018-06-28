@@ -7,7 +7,6 @@ public class Player : Shape
 {
 	//public Text stunText;
 
-	public Text coolDown;
     public delegate void ShootAttack(RaycastHit2D playerHIt, Color attackColor);
     public static event ShootAttack OnAttacking;
     private delegate void OnStateChange();
@@ -52,11 +51,12 @@ public class Player : Shape
         onStateChange += StateHandler;
         Shape_AI.OnShoot += ImHit;
     }
-    new private void OnDisable()
+     private void OnDestroy()
     {
         base.OnDisable();
         detectTouch.onTouch -= TouchHandler;
         onStateChange -= StateHandler;
+		Shape_AI.OnShoot -= ImHit;
     }
     new void Start()
     {
@@ -72,7 +72,6 @@ public class Player : Shape
     void Update()
     {
         base.Update();
-		coolDown.text = shotCooldown.ToString();
     }
 
     private void TouchHandler(RaycastHit2D playerTouch)

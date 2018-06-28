@@ -205,12 +205,13 @@ MonoBehaviour:
   scaleRate: 0.01
   scaleSpeed: 0.1
   collisionStunTime: 5
-  shotCooldown: 5
+  shotCooldown: 12
   stunprefab: {fileID: 19870958, guid: 37529a8d3a3aaf7498b62309b1c015ab, type: 2}
   stunShot: {fileID: 19841060, guid: c11ec31625295454988054caf01a8f1e, type: 2}
   shapeColor: {r: 0, g: 0, b: 0, a: 0}
   score: 0
   place: 0
+  coolDown: {fileID: 0}
   attackMe: {fileID: 0}
   actionindicator: {fileID: 0}
   detectionRadius: 0.5

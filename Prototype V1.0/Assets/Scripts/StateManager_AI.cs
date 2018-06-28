@@ -30,6 +30,11 @@ public class StateManager_AI : MonoBehaviour {
         GameManager2.NotifyAi += assignPlace;
 	}
 
+	private void OnDestroy()
+	{
+		GameManager2.NotifyAi -= assignPlace;
+	}
+
 	// Use this for initialization
 
 	void Start () {

@@ -40,7 +40,7 @@ public class Timer : MonoBehaviour
             timerLabel.text = string.Format("{0:00} : {1:00}", minutes, seconds);
             yield return new WaitForSeconds(1);
         }
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
         Debug.Log("Scene change activated!!!");
     }
 }
