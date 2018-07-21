@@ -147,7 +147,6 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 3f32f08a64daf40b09ed864d96fe3840 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.GameManager
 d909e83b9d6b1f25888cff58530f07aa Assembly-CSharp.dll:.StateManager_AI
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:DigitalRubyShared.AsteroidScript
 1687b69288d373128ca79d12847b2200 Assembly-CSharp.dll:.Timer
@@ -173,6 +172,6 @@ b30ff7dc52d315c5c662983a2e22145a Assembly-CSharp.dll:DigitalRubyShared.DemoScrip
 f555687441694e2e50eeeb0b42df1a94 Assembly-CSharp.dll:DigitalRubyShared.DemoScriptSwipe
 079086b44a0521911952c90c33896fa4 Assembly-CSharp.dll:.Hit
 024ccac1f1d487d84917f67f53184310 Assembly-CSharp.dll:FlyingWormConsole3.ConsoleProRemoteServer
-4605f80b514ef6f5587f6c52efefebd9 Assembly-CSharp.dll:.Shape_AI
+392119cb4373cb976ef39de338913516 Assembly-CSharp.dll:.Shape_AI
 b42f786d9d54e04c31425ba9dad200d3 Assembly-CSharp.dll:.MultiParticleSystemSpawner
 058dffd39719f0478c42d4800a4d2e77 Assembly-CSharp.dll:.UpDown

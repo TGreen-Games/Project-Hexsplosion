@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FillShape : MonoBehaviour {
+	
     public float fillRate = 1f;
-    private float fillSpeed;
-    private Vector3 originalScale;
-    private Vector3 currentParentScale;
-    public GameObject outlineShape;
-    private Color playerColor;
-    private bool canCapture;
-    public bool CanCapture
+	public GameObject outlineShape;
+	public bool CanCapture
     {
         set { canCapture = value; }
         get { return canCapture; }
     }
-
-
+    private float fillSpeed;
+    private Vector3 originalScale;
+    private Vector3 currentParentScale;
+    private Color playerColor;
+    private bool canCapture;
+ 
     private void Awake()
     {
         fillSpeed = fillRate / 1000;
@@ -61,7 +61,4 @@ public class FillShape : MonoBehaviour {
         this.gameObject.SetActive(false);
 
     }
-   
-
-
 }

@@ -5,64 +5,60 @@ using UnityEngine.UI;
 
 public class Shape : MonoBehaviour
 {
-    public GameObject fillShape;
-    public float scaleRate = 0.002f;
-    public float scaleSpeed = 0.2f;
-    public float collisionStunTime = 5.0f;
-    public float shotCooldown = 12.0f;
-    public ParticleSystem stunprefab;
-    public ParticleSystem stunShot;
-    public Color shapeColor;
-    public int score;
-    public int place;
+	public GameObject fillShape;
+	public float scaleRate = 0.002f;
+	public float scaleSpeed = 0.2f;
+	public float collisionStunTime = 5.0f;
+	public float shotCooldown = 12.0f;
+	public ParticleSystem stunprefab;
+	public ParticleSystem stunShot;
+	public Color shapeColor;
+	public int score;
 	public Text coolDown;
 	protected Vector2 sizeLimiter = new Vector2(0.1608f, 0.1546f);
-	protected delegate void ImGreedy( Shape greedyPlayer, bool isGreedy);
+	protected delegate void ImGreedy(Shape greedyPlayer, bool isGreedy);
 	protected static event ImGreedy OnGreed;
-    protected bool canShoot = true;
-    protected bool canMove = true;
-    protected bool isStunned = false;
-    protected Vector3 startingScale;
-    protected List<GameObject> capturedTiles;
+	protected bool canShoot = true;
+	protected bool canMove = true;
+	protected bool isStunned = false;
+	protected Vector3 startingScale;
+	protected List<GameObject> capturedTiles;
 	protected bool isGreedy = false;
 	protected bool IsGreedy
-    {
+	{
 		get { return isGreedy; }
-        set
-        {
+		set
+		{
 			if (isGreedy == value) return;
 			isGreedy = value;
 			if (OnGreed != null)
-				OnGreed(this,isGreedy);
-        }
-    }
+				OnGreed(this, isGreedy);
+		}
+	}
 
-    // Use this for initialization
+	// Use this for initialization
 
-    protected void OnEnable()
-    {
-        shapeColor = this.GetComponent<SpriteRenderer>().color;
-        GameManager2.Instance.AddPlayer(shapeColor, this);
-    }
-    protected void OnDisable()
-    {
-        
-    }
-	protected void Update()
+	protected virtual void OnEnable()
 	{
-        if(canShoot == false)
-        {
-            
-            shotCooldown -= Time.deltaTime;
-			//Debug.Log( this.transform.parent.name + " Sorry cant shoot yet. Heres how much time you have left " + shotCooldown);
-            if (shotCooldown <= 0){
-                canShoot = true;
-				shotCooldown = 12.0f;
-            }          
-                
-        }
+		shapeColor = this.GetComponent<SpriteRenderer>().color;
+		GameManager2.Instance.AddPlayer(shapeColor, this);
+	}
 
-		if(this.transform.localScale.x > 0.2 && isGreedy == false)
+	protected virtual void Update()
+	{
+		if (canShoot == false)
+		{
+
+			shotCooldown -= Time.deltaTime;
+			if (shotCooldown <= 0)
+			{
+				canShoot = true;
+				shotCooldown = 12.0f;
+			}
+
+		}
+
+		if (this.transform.localScale.x > 0.2 && isGreedy == false)
 		{
 			IsGreedy = true;
 		}
@@ -73,34 +69,23 @@ public class Shape : MonoBehaviour
 
 
 	}
-	protected void Start()
-    {
-        startingScale = this.transform.localScale;
-        capturedTiles = new List<GameObject>();
+
+	protected virtual void Start()
+	{
+		startingScale = this.transform.localScale;
+		capturedTiles = new List<GameObject>();
 		coolDown.color = shapeColor;
-     
-    }
 
+	}
 
-    //protected IEnumerator Stun()
-    //{
-    //    canMove = false;
-    //    this.transform.localScale = scale;
-    //    this.fillShape.SetActive(false);
-    //    yield return new WaitForSeconds(collisionStunTime);
-    //    canMove = true;
-    //}
-    
-    protected IEnumerator cooldownTimer ( float cooldown)
-    {
-        yield return new WaitUntil(() => canShoot == true);
-        shotCooldown = 12.0f;
+	protected IEnumerator cooldownTimer(float cooldown)
+	{
+		yield return new WaitUntil(() => canShoot == true);
+		shotCooldown = 12.0f;
 
-    }
-
-
+	}
 }
-       
+
 
 
 

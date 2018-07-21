@@ -5,27 +5,22 @@ using UnityEngine.UI;
 
 public class Shape_AI : Shape
 {
-	public Shape attackMe;
 	public StateManager_AI actionindicator;
-	private List<GameObject> grid;
 	public float detectionRadius = 1;
-	private float waitTime = 3f;
-	public int bravery = 100;
-	public int braveryLimit = 50;
-	//public int seed;
+	public int expansionLimit = 100;
+	public int braveryModifier = 50;
 	public delegate void ShootAttack(Shape playerHit, Color attackingColor);
 	public static event ShootAttack OnShoot;
-	//public delegate void BoardChanged(int aiScore, Color color);
-	//public static event BoardChanged OnCapture;
+	public System.Random generateRandomNum;
+	private List<GameObject> grid;
+	private float waitTime = 3f;
 	private int timidModifier;
 	private int braveryCheck;
 	private Color tileColor;
 	private Vector2 tilePosition;
 	private StunShot shotScript;
 	private Shape priorityTarget;
-	public System.Random generateRandomNum;
-	// Use this for initialization
-	// make random seed for script
+
 	private void Awake()
 	{
 		actionindicator = this.gameObject.GetComponent<StateManager_AI>();
@@ -54,18 +49,8 @@ public class Shape_AI : Shape
 		grid.AddRange(GameObject.FindGameObjectsWithTag("Tile"));
 		actionindicator.AiState = Enums.AiStage.Neutral;
 		StartCoroutine(Action());
-		//TileManager.instance.AddColor(shapeColor);
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-		base.Update();
-	}
-
-	//private void UpdateState(Enums.AiStage currentState){
-
-	//}
 	private IEnumerator Action()
 	{
 		while (true)
@@ -73,23 +58,25 @@ public class Shape_AI : Shape
 			waitTime = generateRandomNum.Next(1, 6);
 			if (priorityTarget != null && canShoot)
 			{
-				//if(priorityTarget.transform.localScale.magnitude == priorityTarget.s)
-				OnShoot(priorityTarget, shapeColor);
-				Debug.Log("this was a priority shot");
+				if (OnShoot != null)
+				{
+					OnShoot(priorityTarget, shapeColor);
+				}
 				StartCoroutine(cooldownTimer(shotCooldown));
 				canShoot = false;
 				priorityTarget = null;
-				//Debug.Log( "shot at " + priorityTarget.transform.parent.name);
 			}
 			else if (shotScript.isAttacking() && canShoot)
 
 			{
 				var hitPlayer = shotScript.FindTarget();
-				OnShoot(hitPlayer, shapeColor);
+				if (OnShoot != null)
+				{
+					OnShoot(hitPlayer, shapeColor);
+				}
 				canShoot = false;
 				StartCoroutine(cooldownTimer(shotCooldown));
 				priorityTarget = null;
-				Debug.Log("I just shot! My color is: " + this.transform.parent.name);
 			}
 			else if (canMove)
 			{
@@ -104,6 +91,7 @@ public class Shape_AI : Shape
 	{
 		if (state == Enums.AiStage.Attack)
 		{
+			expansionLimit = 200;
 			foreach (GameObject tile in grid)
 			{
 				GetTileInfo(tile);
@@ -116,7 +104,7 @@ public class Shape_AI : Shape
 		}
 		else if (state == Enums.AiStage.Defence)
 		{
-			bravery = 150;
+			expansionLimit = 150;
 			foreach (GameObject tile in grid)
 			{
 				GetTileInfo(tile);
@@ -142,11 +130,11 @@ public class Shape_AI : Shape
 		do
 		{
 			this.transform.localScale += new Vector3(scaleRate, scaleRate) * scaleSpeed;
-			var randomNum = generateRandomNum.Next(0, braveryLimit);
-			braveryCheck = randomNum + timidModifier;
+			var bravery = generateRandomNum.Next(0, braveryModifier);
+			braveryCheck = bravery + timidModifier;
 			timidModifier++;
 			yield return new WaitForFixedUpdate();
-		} while (bravery > braveryCheck);
+		} while (expansionLimit > braveryCheck);
 		StartCoroutine(Fill());
 
 	}
@@ -159,7 +147,6 @@ public class Shape_AI : Shape
 			yield return null;
 		}
 		this.transform.localScale = startingScale;
-		//OnCapture(score, shapeColor);
 		canMove = true;
 		IsGreedy = false;
 
@@ -233,13 +220,13 @@ public class Shape_AI : Shape
 		if (playerHit.collider.gameObject == this.gameObject)
 		{
 			var attackingShot = stunShot.main;
-            attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
-            Instantiate(stunShot, this.transform.position, Quaternion.identity);
+			attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+			Instantiate(stunShot, this.transform.position, Quaternion.identity);
 			StopAllCoroutines();
 			StartCoroutine(Stun());
 			IsGreedy = false;
 		}
-        //this only activates when human player attacks
+		//this only activates when human player attacks
 	}
 
 	private void aiPLayerHitMe(Shape hitPlayer, Color attackColor)
