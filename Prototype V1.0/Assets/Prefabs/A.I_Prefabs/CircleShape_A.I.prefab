@@ -210,13 +210,12 @@ MonoBehaviour:
   stunShot: {fileID: 19841060, guid: c11ec31625295454988054caf01a8f1e, type: 2}
   shapeColor: {r: 0, g: 0, b: 0, a: 0}
   score: 0
-  place: 0
   coolDown: {fileID: 0}
-  attackMe: {fileID: 0}
+  place: 0
   actionindicator: {fileID: 0}
   detectionRadius: 0.5
-  bravery: 150
-  braveryLimit: 80
+  expansionLimit: 100
+  braveryModifier: 50
 --- !u!114 &114656375921500418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -240,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451bf958836554921917b14734d45942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackThreshold: 50
+  attackThreshold: 52
 --- !u!212 &212284542548359428
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -68,8 +68,14 @@ MonoBehaviour:
   fillShape: {fileID: 1195920008644196, guid: 5a58332ade215814cb635ad6573f1158, type: 2}
   scaleRate: 0.001
   scaleSpeed: 0.1
-  playerColor: {r: 0, g: 0, b: 0, a: 0}
+  collisionStunTime: 5
+  shotCooldown: 12
+  stunprefab: {fileID: 0}
+  stunShot: {fileID: 0}
+  shapeColor: {r: 0, g: 0, b: 0, a: 0}
   score: 0
+  coolDown: {fileID: 0}
+  place: 0
 --- !u!114 &114988400356384516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,7 +91,7 @@ MonoBehaviour:
   SimulateMouseWithTouches: 0
   PassThroughObjects: []
   TouchCircles: []
-  ShowTouches: 0
+  ShowTouches: 1
   DefaultDPI: 200
   ClearGesturesOnLevelLoad: 1
 --- !u!212 &212794000555605950

@@ -174,6 +174,7 @@ public class Player : Shape
 			attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
 			Instantiate(stunShot, this.transform.position, Quaternion.identity);
 			StopAllCoroutines();
+			Handheld.Vibrate();
 			StartCoroutine(Stun());
 			IsGreedy = false;
 		}

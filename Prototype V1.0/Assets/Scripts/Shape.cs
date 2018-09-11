@@ -15,6 +15,7 @@ public class Shape : MonoBehaviour
 	public Color shapeColor;
 	public int score;
 	public Text coolDown;
+	public int place;
 	protected Vector2 sizeLimiter = new Vector2(0.1608f, 0.1546f);
 	protected delegate void ImGreedy(Shape greedyPlayer, bool isGreedy);
 	protected static event ImGreedy OnGreed;
