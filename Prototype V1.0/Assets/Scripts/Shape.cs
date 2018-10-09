@@ -10,18 +10,24 @@ public class Shape : MonoBehaviour
 	public float scaleSpeed = 0.2f;
 	public float collisionStunTime = 5.0f;
 	public float shotCooldown = 12.0f;
-	public ParticleSystem stunprefab;
-	public ParticleSystem stunShot;
+	public GameObject collisionStun;
+	protected RFX4_EffectSettingColor collisionColor;
+	//public ParticleSystem stunShot;
+	public GameObject stunShot;
+	protected RFX4_EffectSettingColor shotColor;
 	public Color shapeColor;
 	public int score;
 	public Text coolDown;
+	public Text stunText;
 	public int place;
+	public float detectionRadius = 1;
+	protected int playerLayer = 10;
 	protected Vector2 sizeLimiter = new Vector2(0.1608f, 0.1546f);
 	protected delegate void ImGreedy(Shape greedyPlayer, bool isGreedy);
 	protected static event ImGreedy OnGreed;
 	protected bool canShoot = true;
-	protected bool canMove = true;
-	protected bool isStunned = false;
+	public bool canMove = true;
+	//public bool isStunned = false;
 	protected Vector3 startingScale;
 	protected List<GameObject> capturedTiles;
 	protected bool isGreedy = false;
@@ -36,7 +42,7 @@ public class Shape : MonoBehaviour
 				OnGreed(this, isGreedy);
 		}
 	}
-
+    
 	// Use this for initialization
 
 	protected virtual void OnEnable()
@@ -66,16 +72,18 @@ public class Shape : MonoBehaviour
 		if (shotCooldown == 12.0)
 			coolDown.text = "Stun Ready";
 		else
-			coolDown.text = shotCooldown.ToString();
-
-
+			coolDown.text = Mathf.RoundToInt(shotCooldown).ToString();
 	}
 
 	protected virtual void Start()
 	{
 		startingScale = this.transform.localScale;
 		capturedTiles = new List<GameObject>();
+		shotColor = stunShot.GetComponent<RFX4_EffectSettingColor>();
+		collisionColor = collisionStun.GetComponent<RFX4_EffectSettingColor>();
 		coolDown.color = shapeColor;
+		stunText.enabled = false;
+		Debug.Log("This got called");
 
 	}
 

@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class Player : Shape
 {
-
-	public delegate void ShootAttack(RaycastHit2D playerHIt, Color attackColor);
+	public Text noActionMarker;
+	public AudioClip actionMarkerSound;
+	public AudioClip expansionSound;
+	public AudioClip fillSound;
+	public AudioClip touchSound;
+	public delegate void ShootAttack(Transform playerHIt, Color attackColor);
 	public static event ShootAttack OnAttacking;
 	private delegate void OnStateChange();
 	private event OnStateChange onStateChange;
@@ -40,7 +44,7 @@ public class Player : Shape
 		detectTouch = this.gameObject.GetComponent<DetectTouch>();
 	}
 
-	new private void OnEnable()
+	override protected void OnEnable()
 	{
 		base.OnEnable();
 		detectTouch.onTouch += TouchHandler;
@@ -54,50 +58,61 @@ public class Player : Shape
 		Shape_AI.OnShoot -= ImHit;
 	}
 
-	new void Start()
+	protected override void Start()
 	{
 		base.Start();
 		state = Enums.PlayerStage.Neutral;
 		playerCollider = this.gameObject.GetComponent<Collider2D>();
-
+		noActionMarker.enabled = false;
 	}
 
 	private void TouchHandler(RaycastHit2D playerTouch)
 	{
-		if (State == Enums.PlayerStage.Neutral && canMove)
+		//work on adding no action marker
+		if (State == Enums.PlayerStage.Neutral)
 		{
 			if (playerTouch)
 			{
-
-				if (playerTouch.collider.gameObject.tag == "Player")
+				noActionMarker.enabled = false;
+				var touchLocation = playerTouch.transform.position;
+				var detectedPlayer = isPlayerDetected(touchLocation, detectionRadius);
+				if (detectedPlayer != null)
 				{
-					if (canShoot)
+					if (canShoot && canMove)
+						attackPlayer(detectedPlayer.transform);
+					else
+						MoveActionMarker("Too close to another player!");
+				}
+         
+                else if(canMove == false)
+				{
+					MoveActionMarker("You're stunned!");
+				}
+                
+				else if (playerTouch.collider.gameObject.tag == "Player")
+				{
+					if (canShoot && canMove)
 					{
-						if (OnAttacking != null)
-						{
-							OnAttacking(playerTouch, shapeColor);
-						}
-                        
-						Shape_AI enemyPlayer = playerTouch.collider.GetComponent<Shape_AI>();
-						Instantiate(stunShot, playerTouch.transform.position, Quaternion.identity);
-						canShoot = false;
+						attackPlayer(playerTouch.transform);
 					}
 					else
 					{
-
+						MoveActionMarker("Stun shot still on cooldown");
 						StartCoroutine(cooldownTimer(shotCooldown));
 					}
 
 				}
 				else if (playerTouch.collider.gameObject.tag == "Tile")
 				{
-					this.transform.position = playerTouch.transform.position;
+					//SoundManager.Instance.EffectsSource.PlayOneShot(touchSound);
+					this.transform.position = touchLocation;
 					State = Enums.PlayerStage.Expand;
 				}
 
 			}
 			else
 			{
+				MoveActionMarker("Try aiming for the center of a tile.");
 				Debug.Log("you missed!");
 			}
 		}
@@ -115,6 +130,7 @@ public class Player : Shape
 				this.transform.localScale = startingScale;
 				break;
 			case Enums.PlayerStage.Fill:
+				SoundManager.Instance.EffectsSource.Stop();
 				StartCoroutine(Fill());
 				break;
 			default:
@@ -124,7 +140,8 @@ public class Player : Shape
 
 	private IEnumerator Expand()
 	{
-
+		SoundManager.Instance.EffectsSource.clip = expansionSound;
+		SoundManager.Instance.EffectsSource.Play();
 		while (State == Enums.PlayerStage.Expand)
 		{
 			this.transform.localScale += new Vector3(scaleRate, scaleRate) * scaleSpeed;
@@ -135,34 +152,70 @@ public class Player : Shape
 
 	private IEnumerator Fill()
 	{
+		SoundManager.Instance.EffectsSource.clip = fillSound;
+		SoundManager.Instance.EffectsSource.Play();
 		fillShape.SetActive(true);
 		while (fillShape.activeSelf)
 		{
 			yield return null;
 		}
 		yield return new WaitForFixedUpdate();
+		SoundManager.Instance.EffectsSource.Stop();
+        IsGreedy = false;
 		State = Enums.PlayerStage.Neutral;
-		IsGreedy = false;
 
+
+	}
+
+	private void attackPlayer(Transform enemyPlayer)
+	{
+		if (OnAttacking != null)
+        {
+            OnAttacking(enemyPlayer, shapeColor);
+        }
+        canShoot = false;
 	}
 
 	private void OnCollisionEnter2D(Collision2D player)
 	{
 		if (player.gameObject.CompareTag("Player"))
 		{
-			Instantiate(stunprefab, this.transform.position, Quaternion.identity);
+			collisionColor.Color = shapeColor;
+			Instantiate(collisionStun, this.transform.position, Quaternion.identity);
+			Handheld.Vibrate();
 			StopAllCoroutines();
+			canShoot = false;
 			StartCoroutine(Stun());
 		}
+	}
+    
+	private Collider2D isPlayerDetected(Vector3 position, float radius)
+	{
+		var hitplayer = Physics2D.OverlapCircle(position, radius,1 << playerLayer );
+		if (hitplayer != null)
+			return hitplayer;
+		else
+			return null;
 	}
 
 	private IEnumerator Stun()
 	{
+		SoundManager.Instance.EffectsSource.Stop();
 		canMove = false;
+		stunText.transform.position = this.transform.position;
+		stunText.enabled = true;
 		State = Enums.PlayerStage.Neutral;
 		this.fillShape.SetActive(false);
 		yield return new WaitForSeconds(collisionStunTime);
+		stunText.enabled = false;
 		canMove = true;
+	}
+
+	private void MoveActionMarker(string message)
+	{
+		noActionMarker.text = message;
+		noActionMarker.enabled = true;
+		SoundManager.Instance.EffectsSource.PlayOneShot(actionMarkerSound);
 	}
 
 	private void ImHit(Shape playerHit, Color attackColor)
@@ -170,8 +223,9 @@ public class Player : Shape
 
 		if (playerHit == this)
 		{
-			var attackingShot = stunShot.main;
-			attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+			//var attackingShot = stunShot.main;
+			//attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+			shotColor.Color = attackColor;
 			Instantiate(stunShot, this.transform.position, Quaternion.identity);
 			StopAllCoroutines();
 			Handheld.Vibrate();

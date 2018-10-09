@@ -14,3 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ScoreScreen.unity
     guid: 4fe9508c913b20147bb85c3f13439323
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 672482b4a05a14f02812ddd281766c7a

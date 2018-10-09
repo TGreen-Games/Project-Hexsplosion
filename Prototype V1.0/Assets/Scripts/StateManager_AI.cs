@@ -18,6 +18,7 @@ public class StateManager_AI : MonoBehaviour
 	public int place;
 	public delegate void UpdateState(Enums.AiStage currentState);
 	public event UpdateState onStateChanged;
+	private int score;
 	private Enums.AiStage aiState = Enums.AiStage.Defence;
 	private Dictionary<Color, int> playerScores = new Dictionary<Color, int>();
 	private List<int> sortedScores = new List<int>();
@@ -50,7 +51,7 @@ public class StateManager_AI : MonoBehaviour
 			place = 1;
 			foreach (Shape player in GameManager2.Instance.players.Values)
 			{
-				int score = player.score;
+				 score = player.score;
 				if (playerScore < score)
 					place++;
 			}
@@ -62,7 +63,7 @@ public class StateManager_AI : MonoBehaviour
 
 	private void assignState()
 	{
-		if (place == 1)
+		if (place == 1 && score > 50)
 			AiState = Enums.AiStage.Defence;
 		else if (place == 4)
 			AiState = Enums.AiStage.Attack;

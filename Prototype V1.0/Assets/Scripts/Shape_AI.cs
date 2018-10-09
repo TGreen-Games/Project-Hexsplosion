@@ -6,20 +6,20 @@ using UnityEngine.UI;
 public class Shape_AI : Shape
 {
 	public StateManager_AI actionindicator;
-	public float detectionRadius = 1;
+
 	public int expansionLimit = 100;
 	public int braveryModifier = 50;
 	public delegate void ShootAttack(Shape playerHit, Color attackingColor);
 	public static event ShootAttack OnShoot;
 	public System.Random generateRandomNum;
-	private List<GameObject> grid;
-	private float waitTime = 3f;
-	private int timidModifier;
-	private int braveryCheck;
-	private Color tileColor;
-	private Vector2 tilePosition;
-	private StunShot shotScript;
-	private Shape priorityTarget;
+	protected List<GameObject> grid;
+    private float waitTime = 3f;
+	protected int timidModifier;
+	protected int braveryCheck;
+    private Color tileColor;
+    private Vector2 tilePosition;
+    private StunShot shotScript;
+	protected Shape priorityTarget;
 
 	private void Awake()
 	{
@@ -31,7 +31,8 @@ public class Shape_AI : Shape
 		base.OnEnable();
 		Player.OnAttacking += humanPlayerHitMe;
 		Shape_AI.OnShoot += aiPLayerHitMe;
-		Shape.OnGreed += priorityShot;      //seed = System.Environment.TickCount + this.gameObject.GetHashCode();
+		Shape.OnGreed += priorityShot;
+		//seed = System.Environment.TickCount + this.gameObject.GetHashCode();
 
 	}
 
@@ -41,13 +42,14 @@ public class Shape_AI : Shape
 		Shape_AI.OnShoot -= aiPLayerHitMe;
 		Shape.OnGreed -= priorityShot;
 	}
-	new private void Start()
+	protected override void Start()
 	{
 		base.Start();
 		generateRandomNum = new System.Random(System.Environment.TickCount + this.gameObject.GetHashCode());
 		grid = new List<GameObject>();
 		grid.AddRange(GameObject.FindGameObjectsWithTag("Tile"));
 		actionindicator.AiState = Enums.AiStage.Neutral;
+		Debug.Log("This was called");
 		StartCoroutine(Action());
 	}
 
@@ -58,15 +60,12 @@ public class Shape_AI : Shape
 			waitTime = generateRandomNum.Next(1, 6);
 			if (priorityTarget != null && canShoot)
 			{
-				if (OnShoot != null)
-				{
-					OnShoot(priorityTarget, shapeColor);
-				}
+				BeingGreedy(priorityTarget);
 				StartCoroutine(cooldownTimer(shotCooldown));
 				canShoot = false;
 				priorityTarget = null;
 			}
-			else if (shotScript.isAttacking() && canShoot)
+			else if (shotScript.isAttacking() && canShoot && score > 10)
 
 			{
 				var hitPlayer = shotScript.FindTarget();
@@ -124,7 +123,7 @@ public class Shape_AI : Shape
 		StartCoroutine(Expand());
 	}
 
-	private IEnumerator Expand()
+	protected virtual IEnumerator Expand()
 	{
 		timidModifier = 0;
 		do
@@ -139,7 +138,7 @@ public class Shape_AI : Shape
 
 	}
 
-	private IEnumerator Fill()
+	protected virtual IEnumerator Fill()
 	{
 		this.fillShape.SetActive(true);
 		while (this.fillShape.activeSelf)
@@ -153,8 +152,9 @@ public class Shape_AI : Shape
 	}
 
 
-	private void priorityShot(Shape greedyPlayer, bool isPlayerBeingGreedy)
+	protected void priorityShot(Shape greedyPlayer, bool isPlayerBeingGreedy)
 	{
+		Debug.Log("We did it");
 		if (isPlayerBeingGreedy && greedyPlayer != this)
 			priorityTarget = greedyPlayer;
 		else
@@ -168,7 +168,7 @@ public class Shape_AI : Shape
 		tilePosition = tile.transform.position;
 	}
 
-	private bool FoundRandomTile()
+	protected bool FoundRandomTile()
 	{
 		var randomNum = generateRandomNum.Next(0, grid.Count);
 		GameObject randomTile = grid[randomNum];
@@ -185,42 +185,45 @@ public class Shape_AI : Shape
 
 	private Collider2D isPlayerDetected(Vector2 position, float radius)
 	{
-		Collider2D[] hitPLayers = Physics2D.OverlapCircleAll(position, radius);
-		foreach (Collider2D player in hitPLayers)
-		{
-			if (player.gameObject.CompareTag("Player") && player.gameObject != this.gameObject)
-				return player;
-		}
-		return null;
+		var hitPlayer = Physics2D.OverlapCircle(position, radius, 1 << playerLayer);
+		if (hitPlayer != null)
+			return hitPlayer;
+		else
+		    return null;
 	}
 
 	private void OnCollisionEnter2D(Collision2D player)
 	{
 		if (player.gameObject.CompareTag("Player"))
 		{
-			Instantiate(stunprefab, this.transform.position, Quaternion.identity);
+			collisionColor.Color = shapeColor;
+			Instantiate(collisionStun, this.transform.position, Quaternion.identity);
 			StopAllCoroutines();
 			StartCoroutine(Stun());
 		}
 
 	}
 
-	public IEnumerator Stun()
+	protected virtual IEnumerator Stun()
 	{
 		canMove = false;
+		stunText.transform.position = this.transform.position;
+		stunText.enabled = true;
 		this.transform.localScale = startingScale;
 		this.fillShape.SetActive(false);
 		yield return new WaitForSeconds(collisionStunTime);
+		stunText.enabled = false;
 		canMove = true;
 		StartCoroutine(Action());
 	}
 
-	private void humanPlayerHitMe(RaycastHit2D playerHit, Color attackColor)
+	private void humanPlayerHitMe(Transform playerHit, Color attackColor)
 	{
-		if (playerHit.collider.gameObject == this.gameObject)
+		if (playerHit.gameObject == this.gameObject)
 		{
-			var attackingShot = stunShot.main;
-			attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+			//var attackingShot = stunShot.main;
+			//attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+			shotColor.Color = attackColor;
 			Instantiate(stunShot, this.transform.position, Quaternion.identity);
 			StopAllCoroutines();
 			StartCoroutine(Stun());
@@ -233,8 +236,9 @@ public class Shape_AI : Shape
 	{
 		if (hitPlayer == this)
 		{
-			var attackingShot = stunShot.main;
-			attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+			//var attackingShot = stunShot.main;
+			//attackingShot.startColor = new ParticleSystem.MinMaxGradient(attackColor);
+			shotColor.Color = attackColor;
 			Instantiate(stunShot, this.transform.position, Quaternion.identity);
 			StopAllCoroutines();
 			StartCoroutine(Stun());
@@ -242,7 +246,17 @@ public class Shape_AI : Shape
 
 		}
 
+        //make this method in derived class
 
+
+	}
+
+	protected virtual void BeingGreedy(Shape hitPlayer)
+	{
+		if (OnShoot != null)
+        {
+            OnShoot(hitPlayer, shapeColor);
+        }
 	}
 
 }

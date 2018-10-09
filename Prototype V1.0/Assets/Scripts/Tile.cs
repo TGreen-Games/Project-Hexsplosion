@@ -7,8 +7,9 @@ public class Tile : MonoBehaviour
 
 	public Color PlayerColor { get { return playerColor; } }
 	private Color playerColor;
+	public Image TileImage {get { return tileImage; }}
 	private Image tileImage;
-	private Color originalColor;
+	public Color originalColor;
 
 	// Use this for initialization
 	void Start()

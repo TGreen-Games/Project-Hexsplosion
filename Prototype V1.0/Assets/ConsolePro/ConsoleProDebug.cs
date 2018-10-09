@@ -1,16 +1,20 @@
 using UnityEngine;
 using System;
+#if UNITY_EDITOR
 using System.Reflection;
+#endif
 
 public static class ConsoleProDebug
 {
 	// Clear the console and the native console
 	public static void Clear()
 	{
+		#if UNITY_EDITOR
 		if(ConsoleClearMethod != null)
 		{
 			ConsoleClearMethod.Invoke(null, null);
 		}
+		#endif
 	}
 
 	// Send a log to a specific filter regardless of contents
@@ -30,6 +34,7 @@ public static class ConsoleProDebug
 		Debug.Log(inName + " : " + inValue + "\nCPAPI:{\"cmd\":\"Watch\" \"name\":\"" + inName + "\"}");
 	}
 
+	#if UNITY_EDITOR
 	// Reflection calls to access Console Pro from runtime
 	private static bool _checkedConsoleClearMethod = false;
 	private static MethodInfo _consoleClearMethod = null;
@@ -78,4 +83,5 @@ public static class ConsoleProDebug
 			return _consoleWindowType;
 		}
 	}
+	#endif
 }

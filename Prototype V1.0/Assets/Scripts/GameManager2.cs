@@ -7,6 +7,7 @@ using System;
 
 public class GameManager2 : MonoBehaviour
 {
+	public AudioClip bgm;
 	public Dictionary<Color, Shape> players = new Dictionary<Color, Shape>();
 	public delegate void SendScoreData(Color color, int playerScore);
 	public static event SendScoreData NotifyAi;
@@ -25,8 +26,14 @@ public class GameManager2 : MonoBehaviour
 
 	private void OnEnable()
 	{
-
+        
 		SceneManager.sceneLoaded += onSceneLoaded;
+	}
+
+	private void Start()
+	{
+		//SoundManager.Instance.MusicSource.clip = bgm;
+		//SoundManager.Instance.MusicSource.Play();
 	}
 
 	private void OnDisable()
@@ -55,11 +62,15 @@ public class GameManager2 : MonoBehaviour
 
 	private void onSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (SceneManager.GetActiveScene().buildIndex == 2)
+		if (SceneManager.GetActiveScene().buildIndex == (int)Enums.Scenes.ScoreScreen)
 		{
+			SoundManager.Instance.EffectsSource.Stop();
 			DisplayScores();
 			players.Clear();
 		}
+		else if (SceneManager.GetActiveScene().buildIndex == (int)Enums.Scenes.Start)
+			players.Clear();
+		
 
 	}
 

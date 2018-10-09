@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d42440b658fad49b1a6db812f056f69f
+timeCreated: 1537292737
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - EffectsSource: {instanceID: 0}
+  - MusicSource: {instanceID: 0}
+  - titleMusic: {fileID: 8300000, guid: f3c285db837564341972788c11743149, type: 3}
+  - bgm: {fileID: 8300000, guid: 8882c65d9bbe04ab0aaa3cd1efe52c14, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

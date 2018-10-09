@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a048170f4b033448eb3fdf49e53fb769, type: 3}
+  m_Name: Tutorial Lessons
+  m_EditorClassIdentifier: 
+  orderList:
+  - orderName: Intro
+    tutorialText: "Hi, welcome to Project Hexsplosion!\nThe goal of the game is to
+      capture as many titles as possible before time runs out. For this demo you\u2019ll
+      be playing as a red circle.\n\nTap on the red X to start capturing tiles!"
+    continueInstructions: 0
+  - orderName: Expanding
+    tutorialText: When you tap on the grid your shape will slowly start expanding.
+      Tap anywhere on the screen to start filling in your shape.
+    continueInstructions: 1
+  - orderName: Filling
+    tutorialText: Once your shape is completely filled up you will have captured the
+      tiles underneath. Be careful the more you expand the longer it will take for
+      your shape to fill.
+    continueInstructions: 0
+  - orderName: Captured Tiles
+    tutorialText: Nice job on capturing your first set of tiles. Why don't you try
+      expanding your shape as big as it can get and see what happens.
+    continueInstructions: 0
+  - orderName: Getting Stunned
+    tutorialText: "Ouch looks like you got stunned.  Notice the stunned label over
+      your shape. While you\u2019re stunned you cant do anything for a certain amount
+      of time. "
+    continueInstructions: 1
+  - orderName: Other Players
+    tutorialText: "In an actual game, you\u2019ll be competing with 4 other players
+      trying to do the same thing as you.If you try to capture too many tiles at once,
+      another player might try to stun you. Its up to you to balance the risk versus
+      the reward. "
+    continueInstructions: 1
+  - orderName: Stun
+    tutorialText: "Uh oh it looks like Blue player is trying to capture some tiles.
+      Why don\u2019t you get some sweet revenge and tap on him to stun him."
+    continueInstructions: 0
+  - orderName: Sweet Revenge
+    tutorialText: "Nice Job! If you look in the bottom left corner of the screen you\u2019ll
+      see a cool down for your stun ability. It\u2019s on a 12 second cool down so
+      use it wisely."
+    continueInstructions: 1
+  - orderName: Collision
+    tutorialText: 'It looks like blue player is trying to capture more territory and
+      your stun is still on cooldown. Try making your shape collide with his by moving
+      it as close to him as possible.
+
+'
+    continueInstructions: 1
+  - orderName: Status Bar
+    tutorialText: "Theres a status indicator at the bottom of the screen. It will
+      tell you if you\u2019re trying to move to close to another players shape and
+      other helpful stuff. Look there if you\u2019re ever confused.\n"
+    continueInstructions: 0
+  - orderName: End Tutorial
+    tutorialText: You did it! Nice job on completing the tutorial. Now its time for
+      a real game. Good luck!
+    continueInstructions: 0

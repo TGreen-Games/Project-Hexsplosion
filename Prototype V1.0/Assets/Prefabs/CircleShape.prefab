@@ -55,10 +55,10 @@ GameObject:
   - component: {fileID: 4807794184770824}
   - component: {fileID: 212046095027585588}
   - component: {fileID: 114891894582981412}
-  - component: {fileID: 114266099909599838}
   - component: {fileID: 114573756092350014}
   - component: {fileID: 58385230133637700}
   - component: {fileID: 50219324739575332}
+  - component: {fileID: 114746008849864158}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Player
@@ -88,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1864817439757376}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.086, y: -4.752, z: 0}
+  m_LocalPosition: {x: -2.21, y: -4.59, z: 0}
   m_LocalScale: {x: 0.04872615, y: 0.04998547, z: 1}
   m_Children: []
   m_Father: {fileID: 4685958426680036}
@@ -101,8 +101,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1542033520558166}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.659, y: -4.352, z: 0}
-  m_LocalScale: {x: 0.03616867, y: 0.03364926, z: 1}
+  m_LocalPosition: {x: -2.226, y: -4.564, z: 0}
+  m_LocalScale: {x: 0.0121870935, y: 0.012911853, z: 1}
   m_Children: []
   m_Father: {fileID: 4685958426680036}
   m_RootOrder: 1
@@ -177,17 +177,6 @@ CircleCollider2D:
   m_Offset: {x: -0.40844777, y: 0.8558564}
   serializedVersion: 2
   m_Radius: 3.6752367
---- !u!114 &114266099909599838
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1864817439757376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a7cde29f7d47364a99322dfa3a5f237, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114386301100441870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -216,11 +205,30 @@ MonoBehaviour:
   scaleRate: 0.01
   scaleSpeed: 0.1
   collisionStunTime: 5
+  shotCooldown: 12
   stunprefab: {fileID: 19870958, guid: 37529a8d3a3aaf7498b62309b1c015ab, type: 2}
-  stunShot: {fileID: 19841060, guid: c11ec31625295454988054caf01a8f1e, type: 2}
+  stunShot: {fileID: 1558619841836076, guid: 398e6fa583d6749a8b128fec26133437, type: 2}
   shapeColor: {r: 0, g: 0, b: 0, a: 0}
   score: 0
+  coolDown: {fileID: 0}
+  stunText: {fileID: 0}
   place: 0
+  detectionRadius: 1
+  noActionMarker: {fileID: 0}
+  actionMarkerSound: {fileID: 8300000, guid: 5ba104612b6480e48a55a70bb0e8d933, type: 3}
+  expansionSound: {fileID: 8300000, guid: c7751093c88ad314fada0d84cc02e269, type: 3}
+  touchSound: {fileID: 8300000, guid: 407a31c25fe2fa0408d85d004bccca6b, type: 3}
+--- !u!114 &114746008849864158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864817439757376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7cde29f7d47364a99322dfa3a5f237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114891894582981412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -274,7 +282,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c3485218797390343be5bba58a582e9f, type: 3}
-  m_Color: {r: 0.32786962, g: 0.6544118, b: 0.06255405, a: 1}
+  m_Color: {r: 0.97794116, g: 0, b: 0.20034905, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

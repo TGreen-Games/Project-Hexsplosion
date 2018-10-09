@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 58973840457414934}
   - component: {fileID: 50004539688075996}
   - component: {fileID: 114837276955872956}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Circle
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -211,9 +211,10 @@ MonoBehaviour:
   shapeColor: {r: 0, g: 0, b: 0, a: 0}
   score: 0
   coolDown: {fileID: 0}
+  stunText: {fileID: 0}
   place: 0
-  actionindicator: {fileID: 0}
   detectionRadius: 0.5
+  actionindicator: {fileID: 0}
   expansionLimit: 100
   braveryModifier: 50
 --- !u!114 &114656375921500418

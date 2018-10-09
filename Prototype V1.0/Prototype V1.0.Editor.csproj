@@ -278,6 +278,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="ConsolePro.Editor">
+      <HintPath>Assets/ConsolePro/Editor/ConsolePro.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>/Users/trey/Library/Unity/cache/packages/packages.unity.com/com.unity.ads@1.0.7/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -307,6 +310,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\KriptoFX\Realistic Effects Pack v4\Scripts\Editor\RFX4_CustomMaterialInspectorParticle.cs" />
     <Compile Include="Assets\Mezanix\MezanixFX_Free_1_1\Editor\CombatAttackCI.cs" />
     <Compile Include="Assets\Mezanix\MezanixFX_Free_1_1\Editor\HitCI.cs" />
     <Compile Include="Assets\Mezanix\MezanixFX_Free_1_1\Editor\ParticleSystemSpawnerCI.cs" />
@@ -315,7 +319,49 @@
     <None Include="Assets\Fingers\ChangeLog.txt" />
     <None Include="Assets\Fingers\Prefab\Script\XamarinAndroidTouchAdapter.txt" />
     <None Include="Assets\Fingers\Readme.txt" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\PostEffects\Mobile\Resources\RFX4_Bloom.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\PostEffects\Mobile\Resources\RFX4_BloomAdditive.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\PostEffects\Mobile\Resources\RFX4_Bloom_Inc.cginc" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\PostEffects\Mobile\Resources\RFX4_ReplacementPostEffect.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Readme.txt" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_DecalDistortMask.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_DecalDistortMaskMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_DecalDistortMaskMul.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_DecalDistortMaskMulMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_DecalMask.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_DecalMaskMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_DepthMaskProjector.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_IceDecal.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_IceDecalMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_ProjectorBlended.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Decal\RFX4_ProjectorBlendedMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Portal\NoStencilTransperentDiffuse.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Portal\RFX4_PortalMask.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Portal\RFX4_PortalSky.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Portal\RFX4_PortalStandard.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Portal\RFX4_TranperentDiffuse.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_CutoutBorder.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_CutoutBorderMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_DepthMask.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_DistortionParticles.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_DistortionParticlesAdd.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_DistortionParticlesMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_Ice.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_IceMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_Lava.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_Lightning.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_LightningMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_MobileDiffuse.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_Particle.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_ShaderExtension.cginc" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\RFX4_Tornado.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Water\RFX4_WaterSplash.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Water\RFX4_WaterSplashMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Water\RFX4_WaterSplashTex.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Water\RFX4_WaterSplashTexMobile.shader" />
+    <None Include="Assets\KriptoFX\Realistic Effects Pack v4\Shaders\Water\RFX4_WaterTurbulence.shader" />
     <None Include="Assets\Mezanix\MezanixFX_Free_1_1\0_Documentation\ParticleSystemsList.txt" />
+    <None Include="Assets\Universal Sound FX\version_history.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
