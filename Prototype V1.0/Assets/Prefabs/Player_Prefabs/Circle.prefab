@@ -151,7 +151,7 @@ MonoBehaviour:
   scaleSpeed: 0.1
   collisionStunTime: 5
   shotCooldown: 12
-  stunprefab: {fileID: 0}
+  collisionStun: {fileID: 0}
   stunShot: {fileID: 0}
   shapeColor: {r: 0, g: 0, b: 0, a: 0}
   score: 0
@@ -159,7 +159,12 @@ MonoBehaviour:
   stunText: {fileID: 0}
   place: 0
   detectionRadius: 1
+  canMove: 1
   noActionMarker: {fileID: 0}
+  actionMarkerSound: {fileID: 0}
+  expansionSound: {fileID: 0}
+  fillSound: {fileID: 0}
+  touchSound: {fileID: 0}
 --- !u!114 &114988400356384516
 MonoBehaviour:
   m_ObjectHideFlags: 1

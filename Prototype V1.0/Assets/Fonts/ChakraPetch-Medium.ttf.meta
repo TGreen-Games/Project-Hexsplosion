@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: de9668e6d149143328d208f274b0721a
+timeCreated: 1540056550
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Chakra Petch Medium
+  fontNames:
+  - Chakra Petch Medium
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: c53b9f032513f49fe917f645c05961cd, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

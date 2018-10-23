@@ -20,7 +20,9 @@ public class Shape : MonoBehaviour
 	public Text coolDown;
 	public Text stunText;
 	public int place;
+	public bool isPlayer = false;
 	public float detectionRadius = 1;
+	public bool stunDisabled = false;
 	protected int playerLayer = 10;
 	protected Vector2 sizeLimiter = new Vector2(0.1608f, 0.1546f);
 	protected delegate void ImGreedy(Shape greedyPlayer, bool isGreedy);
@@ -28,6 +30,7 @@ public class Shape : MonoBehaviour
 	protected bool canShoot = true;
 	public bool canMove = true;
 	//public bool isStunned = false;
+	protected float greedLimiter = 0.2f;
 	protected Vector3 startingScale;
 	protected List<GameObject> capturedTiles;
 	protected bool isGreedy = false;
@@ -65,12 +68,17 @@ public class Shape : MonoBehaviour
 
 		}
 
-		if (this.transform.localScale.x > 0.2 && isGreedy == false)
+		if (this.transform.localScale.x > greedLimiter && isGreedy == false)
 		{
 			IsGreedy = true;
 		}
 		if (shotCooldown == 12.0)
 			coolDown.text = "Stun Ready";
+		else if (stunDisabled)
+		{
+			shotCooldown = 100f;
+			coolDown.text = "Stun Disabled";
+		}
 		else
 			coolDown.text = Mathf.RoundToInt(shotCooldown).ToString();
 	}

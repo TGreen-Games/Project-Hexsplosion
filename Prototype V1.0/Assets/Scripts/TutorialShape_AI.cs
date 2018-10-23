@@ -17,6 +17,8 @@ public class TutorialShape_AI : Shape_AI
         grid = new List<GameObject>();
         grid.AddRange(GameObject.FindGameObjectsWithTag("Tile"));
         actionindicator.AiState = Enums.AiStage.Neutral;
+		greedLimiter = 0.3f;
+		detectionRadius = 2;
 	}
 
 	private void Update()

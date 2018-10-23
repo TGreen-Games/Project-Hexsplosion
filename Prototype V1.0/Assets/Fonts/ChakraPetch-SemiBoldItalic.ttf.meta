@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 7a40278633cb7447abeba19d23810988
+timeCreated: 1540056550
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Chakra Petch SemiBold
+  fontNames:
+  - Chakra Petch SemiBold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 2fdc41e7fdfef4f3ba6388d99eba3c39, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

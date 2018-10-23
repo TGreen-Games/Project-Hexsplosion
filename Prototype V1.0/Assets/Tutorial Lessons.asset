@@ -13,56 +13,360 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderList:
   - orderName: Intro
-    tutorialText: "Hi, welcome to Project Hexsplosion!\nThe goal of the game is to
-      capture as many titles as possible before time runs out. For this demo you\u2019ll
-      be playing as a red circle.\n\nTap on the red X to start capturing tiles!"
+    tutorialText:
+    - Hi welcome to project Hexsplosion!
+    - The goal of the game is to capture the most tiles before time runs out.
+    - Tap anywhere on the screen to start expanding your  shape.
+    - Tap again to start filling in your shape.
     continueInstructions: 0
+    currentObjective: Capture some tiles!
   - orderName: Expanding
-    tutorialText: When you tap on the grid your shape will slowly start expanding.
-      Tap anywhere on the screen to start filling in your shape.
+    tutorialText:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
     continueInstructions: 1
+    currentObjective: 
   - orderName: Filling
-    tutorialText: Once your shape is completely filled up you will have captured the
-      tiles underneath. Be careful the more you expand the longer it will take for
-      your shape to fill.
+    tutorialText:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
     continueInstructions: 0
+    currentObjective: Capture more tiles!
   - orderName: Captured Tiles
-    tutorialText: Nice job on capturing your first set of tiles. Why don't you try
-      expanding your shape as big as it can get and see what happens.
+    tutorialText:
+    - Nice job on capturing your first set of tiles
+    - The bigger you expand the longer it takes to fill.
+    - Try capturing more than 150 tiles!
     continueInstructions: 0
+    currentObjective: Get Your Score above 50!
   - orderName: Getting Stunned
-    tutorialText: "Ouch looks like you got stunned.  Notice the stunned label over
-      your shape. While you\u2019re stunned you cant do anything for a certain amount
-      of time. "
-    continueInstructions: 1
+    tutorialText:
+    - Nice job! Why dont you try expanding as big as possible and see what happens.
+    continueInstructions: 0
+    currentObjective: Expand as big as you can!
   - orderName: Other Players
-    tutorialText: "In an actual game, you\u2019ll be competing with 4 other players
-      trying to do the same thing as you.If you try to capture too many tiles at once,
-      another player might try to stun you. Its up to you to balance the risk versus
-      the reward. "
+    tutorialText:
+    - Oof looks like you got stunned by blue player.
+    - When stunned you cant do anything for 5 seconds.
+    - In a real game there will be 3 other players doing the same as you
+    - The bigger you expand the more likely it is someone will stun you.
     continueInstructions: 1
+    currentObjective: 
   - orderName: Stun
-    tutorialText: "Uh oh it looks like Blue player is trying to capture some tiles.
-      Why don\u2019t you get some sweet revenge and tap on him to stun him."
+    tutorialText:
+    - It looks like blue player is trying to capture some tiles.
+    - Tap on him to stun them and get some sweet revenge!
     continueInstructions: 0
+    currentObjective: Stun blue player!
   - orderName: Sweet Revenge
-    tutorialText: "Nice Job! If you look in the bottom left corner of the screen you\u2019ll
-      see a cool down for your stun ability. It\u2019s on a 12 second cool down so
-      use it wisely."
+    tutorialText:
+    - Nice job! notice the timer in the bottom left of the screen.
+    - Once you stun another player, you have to wait 12 seconds to use it again.
+    - Try to use your stun wisely.
     continueInstructions: 1
+    currentObjective: 
   - orderName: Collision
-    tutorialText: 'It looks like blue player is trying to capture more territory and
-      your stun is still on cooldown. Try making your shape collide with his by moving
-      it as close to him as possible.
-
-'
-    continueInstructions: 1
+    tutorialText:
+    - Uh oh it looks like blue player is trying to capture more tiles.
+    - For the sake of this tutorial your stun is now disabled.
+    - Dont worry though there is still a way to stop them.
+    - When blue player is expanding try expanding your circle next to them until you
+      collide.
+    continueInstructions: 0
+    currentObjective: Collide With Blue Player
   - orderName: Status Bar
-    tutorialText: "Theres a status indicator at the bottom of the screen. It will
-      tell you if you\u2019re trying to move to close to another players shape and
-      other helpful stuff. Look there if you\u2019re ever confused.\n"
-    continueInstructions: 0
+    tutorialText:
+    - Nice Job! If you collide with another player you'll both be stunned for 5 seconds.
+    - Try to use this strategically.
+    - If you ever get confused. There is a status bar at the bottom of the screen.
+    - It will let you know if youre doing something wrong.
+    continueInstructions: 1
+    currentObjective: 
   - orderName: End Tutorial
-    tutorialText: You did it! Nice job on completing the tutorial. Now its time for
-      a real game. Good luck!
+    tutorialText:
+    - Congratulations you completed the tutorial!
+    - Now you're ready for a real game. Good Luck!
     continueInstructions: 0
+    currentObjective: 

@@ -206,7 +206,7 @@ MonoBehaviour:
   scaleSpeed: 0.1
   collisionStunTime: 5
   shotCooldown: 12
-  stunprefab: {fileID: 19870958, guid: 37529a8d3a3aaf7498b62309b1c015ab, type: 2}
+  collisionStun: {fileID: 0}
   stunShot: {fileID: 1558619841836076, guid: 398e6fa583d6749a8b128fec26133437, type: 2}
   shapeColor: {r: 0, g: 0, b: 0, a: 0}
   score: 0
@@ -214,9 +214,11 @@ MonoBehaviour:
   stunText: {fileID: 0}
   place: 0
   detectionRadius: 1
+  canMove: 1
   noActionMarker: {fileID: 0}
   actionMarkerSound: {fileID: 8300000, guid: 5ba104612b6480e48a55a70bb0e8d933, type: 3}
   expansionSound: {fileID: 8300000, guid: c7751093c88ad314fada0d84cc02e269, type: 3}
+  fillSound: {fileID: 0}
   touchSound: {fileID: 8300000, guid: 407a31c25fe2fa0408d85d004bccca6b, type: 3}
 --- !u!114 &114746008849864158
 MonoBehaviour:

@@ -64,6 +64,7 @@ public class Player : Shape
 		state = Enums.PlayerStage.Neutral;
 		playerCollider = this.gameObject.GetComponent<Collider2D>();
 		noActionMarker.enabled = false;
+		isPlayer = true;
 	}
 
 	private void TouchHandler(RaycastHit2D playerTouch)

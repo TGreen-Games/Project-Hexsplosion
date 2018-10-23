@@ -6,17 +6,20 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
+	public Text currentObjective;
 	public Text statusMessage;
 	public AudioClip btnSound;
 	public Button continueButton;
 	public Image arrow;
 	public Image arrow2;
-	public Text teachMarker;
 	public TutorialShape_AI aiPlayer;
 	public Player mainPlayer;
 	public Canvas tutorialBox;
 	public TutorialOrders tutorialInstructions;
 	private Enums.TutorialStage stage = Enums.TutorialStage.Intro;
+	private List<Orders> orderList;
+	private Queue<string> sentaces = new Queue<string>();
+	private DigitalRubyShared.FingersScript touchScript;
 	public Text tutorialDialouge;
 	public Text orderTitle;
     
@@ -25,6 +28,9 @@ public class TutorialManager : MonoBehaviour
 	{
 		arrow.gameObject.SetActive(false);
 		arrow2.gameObject.SetActive(false);
+		orderList = tutorialInstructions.orderList;
+		aiPlayer.enabled = false;
+		touchScript = mainPlayer.GetComponent<DigitalRubyShared.FingersScript>();
 		Tutorial();
 
 	}
@@ -34,60 +40,68 @@ public class TutorialManager : MonoBehaviour
 	{
 		if (mainPlayer.score > 0 && (int)stage < (int)Enums.TutorialStage.CapturedTiles)
 		{
-			teachMarker.enabled = false;
 			stage = Enums.TutorialStage.CapturedTiles;
 			toggletutorialBox();
 			Tutorial();
 		}
-		if(mainPlayer.canMove == false && stage == Enums.TutorialStage.CapturedTiles)
+		if(stage == Enums.TutorialStage.CapturedTiles)
+		{
+			currentObjective.text =  mainPlayer.score + " out of 150";
+		}
+		if (mainPlayer.score > 150 && stage == Enums.TutorialStage.CapturedTiles)
 		{
 			stage = Enums.TutorialStage.GettingStunned;
 			toggletutorialBox();
 			Tutorial();
 		}
+		if(mainPlayer.canMove == false && stage == Enums.TutorialStage.GettingStunned)
+		{
+			stage = Enums.TutorialStage.OtherPlayers;
+			toggletutorialBox();
+			Tutorial();
+		}
 		if(aiPlayer.canMove == false && stage == Enums.TutorialStage.Stun) 
 		{
+			Debug.Log("this isnt going through");
 			stage = Enums.TutorialStage.SweetRevenge;
 			toggletutorialBox();
 			Tutorial();
 		}
-		if(mainPlayer.canMove == false && stage == Enums.TutorialStage.StatusBar)
+		if(mainPlayer.canMove == false && stage == Enums.TutorialStage.Collison)
 		{
-			stage = Enums.TutorialStage.EndTutorial;
+			stage = Enums.TutorialStage.StatusBar;
 			toggletutorialBox();
 			Tutorial();
 		}
+		if (tutorialBox.enabled == true)
+			touchScript.enabled = false;
+		else
+			touchScript.enabled = true;
 	}
 
 	private void Tutorial()
 	{
 		switch (stage)
 		{
-			case Enums.TutorialStage.Intro:
-				playOrder((int)stage);
-				break;
-			case Enums.TutorialStage.Expanding:
-				tutorialBox.enabled = true;
-				Time.timeScale = 0.2f;
-				playOrder((int)stage);
-				break;
-			case Enums.TutorialStage.Filling:
+			case Enums.TutorialStage.Intro:				
 				playOrder((int)stage);
 				break;
 			case Enums.TutorialStage.CapturedTiles:
 				playOrder((int)stage);
 				break;
 			case Enums.TutorialStage.GettingStunned:
+				aiPlayer.enabled = true;
 				playOrder((int)stage);
-				Time.timeScale = 0.2f;
+				//Time.timeScale = 0.2f;
 				break;
 			case Enums.TutorialStage.OtherPlayers:
 				playOrder((int)stage);
-				Time.timeScale = 0.2f;
+				//Time.timeScale = 0.2f;
 				break;
 			case Enums.TutorialStage.Stun:
-				aiPlayer.Move();
+
 				playOrder((int)stage);
+				aiPlayer.Move();
 				break;
 			case Enums.TutorialStage.SweetRevenge:
 				playOrder((int)stage);
@@ -95,20 +109,21 @@ public class TutorialManager : MonoBehaviour
 				break;
 			case Enums.TutorialStage.Collison:
 				playOrder((int)stage);
+				aiPlayer.Move();
+				//Time.timeScale = 0.3f;
+				mainPlayer.stunDisabled = true;
 				break;
 			case Enums.TutorialStage.StatusBar:
+				Time.timeScale = 1;
 				playOrder((int)stage);
 				arrow.gameObject.SetActive(false);
 				arrow2.gameObject.SetActive(true);
 				statusMessage.text = "I'll tell you if you're doing something wrong";
 				statusMessage.enabled = true;
-				aiPlayer.Move();
-				Time.timeScale = 0.2f;
 				break;
 			case Enums.TutorialStage.EndTutorial:
 				arrow2.gameObject.SetActive(false);
 				playOrder((int)stage);
-				continueButton.GetComponentInChildren<Text>().text = "Main Menu";
 				break;			
 			default:
 				break;
@@ -117,34 +132,46 @@ public class TutorialManager : MonoBehaviour
 
     public void playOrder( int currentStage)
 	{
-		orderTitle.text = tutorialInstructions.orderList[currentStage].orderName;
-		tutorialDialouge.text = tutorialInstructions.orderList[currentStage].tutorialText;
+		orderList[currentStage].LoadOrders(sentaces);
+		orderTitle.text = orderList[currentStage].orderName;
+		tutorialDialouge.text = sentaces.Dequeue();
+		if (tutorialInstructions.orderList[currentStage].currentObjective != string.Empty)
+			currentObjective.text = tutorialInstructions.orderList[currentStage].currentObjective;
+
 	}
 
 	public void ContinueButton()
 	{
 		SoundManager.Instance.EffectsSource.PlayOneShot(btnSound);
-		if (ContinueDialog())
+		if(sentaces.Count != 0)
+		{
+			tutorialDialouge.text = sentaces.Dequeue();
+		}			
+		else if(ContinueDialog())
+		{
 			Tutorial();
-		else if(stage == Enums.TutorialStage.EndTutorial)
+		}		    
+		else if(stage == Enums.TutorialStage.EndTutorial && sentaces.Count == 0)
 		{
 			continueButton.GetComponentInChildren<Text>().text = "Main Menu";
 			SceneManager.LoadScene((int)Enums.Scenes.Start);
 		}
 		else
-		toggletutorialBox();
+		{
+			toggletutorialBox();
+		}
+
 	}
 
-	public void TutorialMarkerPressed()
-	{
-		teachMarker.enabled = false;
-		stage = Enums.TutorialStage.Expanding;
-		Tutorial();
-	}
+	//public void TutorialMarkerPressed()
+	//{
+	//	teachMarker.enabled = false;
+	//	stage = Enums.TutorialStage.Expanding;
+	//	Tutorial();
+	//}
     
 	private bool ContinueDialog()
 	{
-		
 		if (tutorialInstructions.orderList[(int)stage].continueInstructions == true)
 		{
 			stage++;
@@ -153,14 +180,14 @@ public class TutorialManager : MonoBehaviour
 		else
 			return false;	    
     }
-
+    
 	private void toggletutorialBox()
 	{
 		if (tutorialBox.enabled == true)
 		{
 			tutorialBox.enabled = false;
-            if((int)stage < 10)
-			Time.timeScale = 1;
+   //         if((int)stage < 10)
+			//Time.timeScale = 1;
 		}
 		else
 			tutorialBox.enabled = true;
@@ -176,14 +203,18 @@ public class Orders
 	public string orderName;
 
 	[TextArea]
-	public string tutorialText;
+	public string[] tutorialText;
 
 	public bool continueInstructions = false;
-       
 
-	public void playOrder()
+	public string currentObjective;
+
+	public void LoadOrders(Queue<string> sentaces)
 	{
-
+		foreach(string sentace in tutorialText)
+		{
+			sentaces.Enqueue(sentace);
+		}
 	}
 
 }

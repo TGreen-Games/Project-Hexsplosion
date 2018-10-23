@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 80ab90f3b659b4bda87b11964cde4954
+timeCreated: 1540055998
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Space Wham
+  fontNames:
+  - Space Wham
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
