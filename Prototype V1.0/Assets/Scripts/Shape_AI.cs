@@ -16,9 +16,10 @@ public class Shape_AI : Shape
     private float waitTime = 3f;
 	protected int timidModifier;
 	protected int braveryCheck;
-    private Color tileColor;
-    private Vector2 tilePosition;
+	protected Color tileColor;
+    protected Vector2 tilePosition;
     private StunShot shotScript;
+	private bool actionStarted;
 	protected Shape priorityTarget;
 
 	private void Awake()
@@ -32,7 +33,6 @@ public class Shape_AI : Shape
 		Player.OnAttacking += humanPlayerHitMe;
 		Shape_AI.OnShoot += aiPLayerHitMe;
 		Shape.OnGreed += priorityShot;
-		//seed = System.Environment.TickCount + this.gameObject.GetHashCode();
 
 	}
 
@@ -49,12 +49,22 @@ public class Shape_AI : Shape
 		grid = new List<GameObject>();
 		grid.AddRange(GameObject.FindGameObjectsWithTag("Tile"));
 		actionindicator.AiState = Enums.AiStage.Neutral;
-		Debug.Log("This was called");
-		StartCoroutine(Action());
+
 	}
 
+	protected override void Update()
+	{
+		base.Update();
+		if (isGamePaused)
+			return;
+		if(actionStarted == false)
+			StartCoroutine(Action());
+			
+		
+	}
 	private IEnumerator Action()
 	{
+		actionStarted = true;
 		while (true)
 		{
 			waitTime = generateRandomNum.Next(1, 6);
@@ -162,7 +172,7 @@ public class Shape_AI : Shape
 	}
 
 
-	private void GetTileInfo(GameObject tile)
+	protected void GetTileInfo(GameObject tile)
 	{
 		tileColor = tile.GetComponent<Image>().color;
 		tilePosition = tile.transform.position;
@@ -182,8 +192,8 @@ public class Shape_AI : Shape
 			return false;
 	}
 
-
-	private Collider2D isPlayerDetected(Vector2 position, float radius)
+    
+	protected Collider2D isPlayerDetected(Vector2 position, float radius)
 	{
 		var hitPlayer = Physics2D.OverlapCircle(position, radius, 1 << playerLayer);
 		if (hitPlayer != null)
@@ -214,7 +224,7 @@ public class Shape_AI : Shape
 		yield return new WaitForSeconds(collisionStunTime);
 		stunText.enabled = false;
 		canMove = true;
-		StartCoroutine(Action());
+		actionStarted = false;
 	}
 
 	private void humanPlayerHitMe(Transform playerHit, Color attackColor)

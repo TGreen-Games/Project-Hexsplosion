@@ -101,7 +101,7 @@ public class TutorialManager : MonoBehaviour
 			case Enums.TutorialStage.Stun:
 
 				playOrder((int)stage);
-				aiPlayer.Move();
+				aiPlayer.Move(mainPlayer.shapeColor);
 				break;
 			case Enums.TutorialStage.SweetRevenge:
 				playOrder((int)stage);
@@ -109,7 +109,7 @@ public class TutorialManager : MonoBehaviour
 				break;
 			case Enums.TutorialStage.Collison:
 				playOrder((int)stage);
-				aiPlayer.Move();
+				aiPlayer.Move(mainPlayer.shapeColor);
 				//Time.timeScale = 0.3f;
 				mainPlayer.stunDisabled = true;
 				break;

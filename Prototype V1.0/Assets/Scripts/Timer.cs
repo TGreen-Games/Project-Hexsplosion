@@ -6,17 +6,23 @@ using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
+	public AudioClip cdwnTimerSound;
+	public AudioClip testSound;
 	public delegate void GameOver();
 	public static event GameOver onGameOver;
 	public Text timerLabel;
 	public float time;
+	public GameObject countDownObject;
+	private Text countDownText;
+	public delegate void PauseGame(bool isPaused);
+    public static event PauseGame IsGamePaused;
 
 	// Use this for initialization
 	void Start()
 	{
-
-		StartCoroutine(timer());
-
+		countDownText = countDownObject.GetComponent<Text>();
+		StartCoroutine(countdownTimer());
+        
 	}
 
 	IEnumerator timer()
@@ -36,4 +42,35 @@ public class Timer : MonoBehaviour
 		}
 		SceneManager.LoadScene(2);
 	}
+
+	private IEnumerator countdownTimer()
+    {
+        IsGamePaused(true);
+        var i = 3;
+        float seconds = 1.0f;
+        countDownObject.SetActive(true);
+		SoundManager.Instance.EffectsSource.PlayOneShot(testSound);
+		foreach (Color playerColor in GameManager2.Instance.players.Keys)
+        {
+            countDownText.color = playerColor;
+            if (i == 0)
+            {
+                countDownText.text = "GO!";
+                Debug.Log("this is went off");
+            }
+            else
+            {
+                countDownText.text = i.ToString();
+				//SoundManager.Instance.EffectsSource.PlayOneShot(cdwnTimerSound);
+                Debug.Log("countdown ACTIe");
+            }
+            i--;
+            yield return new WaitForSeconds(seconds);
+
+        }
+        countDownObject.SetActive(false);
+		IsGamePaused(false);
+		StartCoroutine(timer());
+
+    }
 }

@@ -33,7 +33,7 @@ public class TutorialShape_AI : Shape_AI
 	}
 	protected override IEnumerator Expand()
 	{
-		while(canMove)
+		while(true)
 		{
 			this.transform.localScale += new Vector3(scaleRate, scaleRate) * scaleSpeed;
             yield return new WaitForFixedUpdate();
@@ -44,6 +44,7 @@ public class TutorialShape_AI : Shape_AI
 
 	protected override IEnumerator Stun()
 	{
+		StopAllCoroutines();
 		canMove = false;
         stunText.transform.position = this.transform.position;
         stunText.enabled = true;
@@ -54,10 +55,19 @@ public class TutorialShape_AI : Shape_AI
         canMove = true;
 	}
 
-	public void Move()
+	public void Move(Color playerColor)
 	{
-		if(FoundRandomTile())
-		StartCoroutine(Expand());
+		foreach (GameObject tile in grid)
+		{
+			GetTileInfo(tile);
+			if (tileColor == playerColor && isPlayerDetected(tilePosition, detectionRadius) == null)
+			{
+				this.transform.position = (Vector2)tile.transform.position;
+				break;
+			}
+				
+		}
+		StartCoroutine(Expand());			
 	}
 
 	protected override void BeingGreedy(Shape hitPlayer)

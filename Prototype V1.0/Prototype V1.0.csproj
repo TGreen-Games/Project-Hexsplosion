@@ -361,6 +361,7 @@
     <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\FillShape.cs" />
     <Compile Include="Assets\Scripts\GameManager2.cs" />
+    <Compile Include="Assets\Scripts\Interfaces.cs" />
     <Compile Include="Assets\Scripts\No_Marker.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\ScoreboardManager.cs" />

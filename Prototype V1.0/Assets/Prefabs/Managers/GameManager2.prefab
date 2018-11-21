@@ -52,3 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgm: {fileID: 8300000, guid: 8882c65d9bbe04ab0aaa3cd1efe52c14, type: 3}
+  countDownObject: {fileID: 1400329694124112, guid: 6e218a833cecf4f57ab62ae63d18a139,
+    type: 2}

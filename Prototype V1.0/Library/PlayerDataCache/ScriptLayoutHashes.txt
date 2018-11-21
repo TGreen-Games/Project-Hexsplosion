@@ -134,7 +134,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 5bd55df6462cc77a7d01844f5df4047c Assembly-CSharp.dll:.RotatorZ
 c30a82fc2ecb606cea60945ac4827308 Assembly-CSharp.dll:.RFX4_MaterialQueue
-e086cabd07ec712d50f39cb5ecfbeac2 Assembly-CSharp.dll:.GameManager2
+e40803806dcd85eaef42bedd7ad8793b Assembly-CSharp.dll:.GameManager2
 417ee7e617304e1fe7b12949cb8b01a6 Assembly-CSharp.dll:.RFX4_EffectSettingPhysxForce
 db5cd4d6c4f5c229b6c8060c96c09937 Assembly-CSharp.dll:.ReceiveMaterialChangeByHit
 14a51a9135252b48e64503616415369f Assembly-CSharp.dll:.RFX4_MouseOrbit
@@ -181,7 +181,7 @@ d909e83b9d6b1f25888cff58530f07aa Assembly-CSharp.dll:.StateManager_AI
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:DigitalRubyShared.AsteroidScript
 75d1c102f56e5cd52b98c09e82552c93 Assembly-CSharp.dll:.RFX4_CollisionPropertyDeactiavtion
 a2e6c3787d0867e9be076c03af481418 Assembly-CSharp.dll:.RFX4_StartDelay
-1687b69288d373128ca79d12847b2200 Assembly-CSharp.dll:.Timer
+3a47312a9fe3c0da2ed1c46cc8ac6a4f Assembly-CSharp.dll:.Timer
 173c94d993ba0b83995e282d2d34f045 Assembly-CSharp.dll:.Player
 7408167688c76839b755fe42f5f383ed Assembly-CSharp.dll:.RFX4_ShaderColorGradient
 033ed4e95ad40ae0669ce9aa06b05390 Assembly-CSharp.dll:.Test
@@ -189,6 +189,7 @@ a2e6c3787d0867e9be076c03af481418 Assembly-CSharp.dll:.RFX4_StartDelay
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 2a56361227def9f56c2cf57a88b32f4d UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
+f4d59ae19038ff3888289ab99a0ee8d0 Assembly-CSharp.dll:.ScoreboardManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.RFX4_OnEnableResetTransform
 0b65adde630035924ba523a67765352e Assembly-CSharp.dll:.RFX4_DistortionAndBloom
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
@@ -222,4 +223,3 @@ f52b467e5a2277996a56a551148a4cd5 Assembly-CSharp.dll:.Shape_AI
 b42f786d9d54e04c31425ba9dad200d3 Assembly-CSharp.dll:.MultiParticleSystemSpawner
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.No_Marker
 058dffd39719f0478c42d4800a4d2e77 Assembly-CSharp.dll:.UpDown
-f4d59ae19038ff3888289ab99a0ee8d0 Assembly-CSharp.dll:.ScoreboardManager

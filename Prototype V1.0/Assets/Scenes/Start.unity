@@ -757,7 +757,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Version: 1.3'
+  m_Text: 'Version: 1.3.1'
 --- !u!222 &912778501
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1073,7 +1073,7 @@ Prefab:
         type: 2}
       propertyPath: titleMusic
       value: 
-      objectReference: {fileID: 8300000, guid: f3c285db837564341972788c11743149, type: 3}
+      objectReference: {fileID: 8300000, guid: 6f47054d45be140169ac13735f6bcfc8, type: 3}
     - target: {fileID: 114318942027307084, guid: a9c2572b22c824ded8794a4856421417,
         type: 2}
       propertyPath: bgm

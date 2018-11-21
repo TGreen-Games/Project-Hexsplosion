@@ -16,6 +16,7 @@ public class Player : Shape
 	private event OnStateChange onStateChange;
 	private Collider2D playerCollider;
 	private Enums.PlayerStage state;
+	private DigitalRubyShared.FingersScript touchScript;
 	private Enums.PlayerStage State
 	{
 		get { return state; }
@@ -50,6 +51,7 @@ public class Player : Shape
 		detectTouch.onTouch += TouchHandler;
 		onStateChange += StateHandler;
 		Shape_AI.OnShoot += ImHit;
+		touchScript = this.gameObject.GetComponent<DigitalRubyShared.FingersScript>();
 	}
 	private void OnDestroy()
 	{
@@ -60,6 +62,7 @@ public class Player : Shape
 
 	protected override void Start()
 	{
+		
 		base.Start();
 		state = Enums.PlayerStage.Neutral;
 		playerCollider = this.gameObject.GetComponent<Collider2D>();
@@ -233,6 +236,16 @@ public class Player : Shape
 			StartCoroutine(Stun());
 			IsGreedy = false;
 		}
+	}
+
+	protected override void isPaused(bool isPaused)
+	{
+		base.isPaused(isPaused);
+		if (isPaused)
+			this.touchScript.enabled = false;
+		else
+			this.touchScript.enabled = true;
+			
 	}
 
 }

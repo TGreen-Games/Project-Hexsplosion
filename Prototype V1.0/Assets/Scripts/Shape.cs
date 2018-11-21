@@ -33,6 +33,7 @@ public class Shape : MonoBehaviour
 	protected float greedLimiter = 0.2f;
 	protected Vector3 startingScale;
 	protected List<GameObject> capturedTiles;
+	protected bool isGamePaused = false;
 	protected bool isGreedy = false;
 	protected bool IsGreedy
 	{
@@ -52,10 +53,19 @@ public class Shape : MonoBehaviour
 	{
 		shapeColor = this.GetComponent<SpriteRenderer>().color;
 		GameManager2.Instance.AddPlayer(shapeColor, this);
+		Timer.IsGamePaused += isPaused;
+
+	}
+
+	protected virtual void OnDisable()
+	{
+		Timer.IsGamePaused -= isPaused;
 	}
 
 	protected virtual void Update()
 	{
+		if (isGamePaused)
+			return;
 		if (canShoot == false)
 		{
 
@@ -82,6 +92,7 @@ public class Shape : MonoBehaviour
 		else
 			coolDown.text = Mathf.RoundToInt(shotCooldown).ToString();
 	}
+	
 
 	protected virtual void Start()
 	{
@@ -91,7 +102,6 @@ public class Shape : MonoBehaviour
 		collisionColor = collisionStun.GetComponent<RFX4_EffectSettingColor>();
 		coolDown.color = shapeColor;
 		stunText.enabled = false;
-		Debug.Log("This got called");
 
 	}
 
@@ -100,6 +110,11 @@ public class Shape : MonoBehaviour
 		yield return new WaitUntil(() => canShoot == true);
 		shotCooldown = 12.0f;
 
+	}
+
+	protected virtual void isPaused(bool isPaused)
+	{
+		isGamePaused = isPaused;
 	}
 }
 

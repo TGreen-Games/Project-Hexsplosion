@@ -330,21 +330,25 @@ MonoBehaviour:
     tutorialText:
     - Oof looks like you got stunned by blue player.
     - When stunned you cant do anything for 5 seconds.
-    - In a real game there will be 3 other players doing the same as you
+    - 'In a real game there will be 3 other players doing the same as you.
+
+'
     - The bigger you expand the more likely it is someone will stun you.
     continueInstructions: 1
     currentObjective: 
   - orderName: Stun
     tutorialText:
-    - It looks like blue player is trying to capture some tiles.
-    - Tap on him to stun them and get some sweet revenge!
+    - It looks like blue player is trying to capture some of your tiles!
+    - Once tiles are captured another player can easily steal them.
+    - Tap on blue player to stop them and get some sweet revenge!
     continueInstructions: 0
     currentObjective: Stun blue player!
   - orderName: Sweet Revenge
     tutorialText:
     - Nice job! notice the timer in the bottom left of the screen.
     - Once you stun another player, you have to wait 12 seconds to use it again.
-    - Try to use your stun wisely.
+    - You also can't stun someone while expanding or filling. Try to use your stun
+      wisely.
     continueInstructions: 1
     currentObjective: 
   - orderName: Collision
