@@ -356,6 +356,7 @@
     <Compile Include="Assets\Mezanix\MezanixFX_Free_1_1\2_Scripts\4_Helpers\Test.cs" />
     <Compile Include="Assets\Mezanix\MezanixFX_Free_1_1\Demo\CameraNavigator.cs" />
     <Compile Include="Assets\Mezanix\MezanixFX_Free_1_1\Demo\GetActivePArticleSystemName.cs" />
+    <Compile Include="Assets\Scripts\BackButtonScript.cs" />
     <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\DetectTouch.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />

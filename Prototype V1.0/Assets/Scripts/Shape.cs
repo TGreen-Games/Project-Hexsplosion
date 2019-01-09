@@ -46,6 +46,8 @@ public class Shape : MonoBehaviour
 				OnGreed(this, isGreedy);
 		}
 	}
+	private CircleCollider2D shapeCollision;
+	public SpriteRenderer shapeSprite;
     
 	// Use this for initialization
 
@@ -54,7 +56,6 @@ public class Shape : MonoBehaviour
 		shapeColor = this.GetComponent<SpriteRenderer>().color;
 		GameManager2.Instance.AddPlayer(shapeColor, this);
 		Timer.IsGamePaused += isPaused;
-
 	}
 
 	protected virtual void OnDisable()
@@ -102,6 +103,8 @@ public class Shape : MonoBehaviour
 		collisionColor = collisionStun.GetComponent<RFX4_EffectSettingColor>();
 		coolDown.color = shapeColor;
 		stunText.enabled = false;
+		shapeCollision = this.gameObject.GetComponent<CircleCollider2D>();
+		shapeSprite = this.gameObject.GetComponent<SpriteRenderer>();
 
 	}
 
@@ -115,6 +118,12 @@ public class Shape : MonoBehaviour
 	protected virtual void isPaused(bool isPaused)
 	{
 		isGamePaused = isPaused;
+	}
+
+	protected void isShapeActive(bool active)
+	{
+		shapeSprite.enabled = active;
+		shapeCollision.enabled = active;
 	}
 }
 

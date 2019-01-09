@@ -68,28 +68,32 @@ public class Shape_AI : Shape
 		while (true)
 		{
 			waitTime = generateRandomNum.Next(1, 6);
-			if (priorityTarget != null && canShoot)
+			if (priorityTarget != null && canShoot && canMove )
 			{
 				BeingGreedy(priorityTarget);
 				StartCoroutine(cooldownTimer(shotCooldown));
 				canShoot = false;
 				priorityTarget = null;
 			}
-			else if (shotScript.isAttacking() && canShoot && score > 10)
-
+			else if (shotScript.isAttacking() && canShoot && score > 10 && canMove)
 			{
 				var hitPlayer = shotScript.FindTarget();
-				if (OnShoot != null)
+				if (hitPlayer.shapeSprite.enabled == true)
 				{
-					OnShoot(hitPlayer, shapeColor);
-				}
-				canShoot = false;
-				StartCoroutine(cooldownTimer(shotCooldown));
-				priorityTarget = null;
+					if (OnShoot != null)
+					{
+						OnShoot(hitPlayer, shapeColor);
+						canShoot = false;
+                        StartCoroutine(cooldownTimer(shotCooldown));
+                        priorityTarget = null;
+					}
+
+				}							
 			}
 			else if (canMove)
 			{
 				canMove = false;
+				isShapeActive(true);
 				Move(actionindicator.AiState);
 			}
 			yield return new WaitForSeconds(waitTime);
@@ -101,6 +105,7 @@ public class Shape_AI : Shape
 		if (state == Enums.AiStage.Attack)
 		{
 			expansionLimit = 200;
+			greedLimiter = 0.4f;
 			foreach (GameObject tile in grid)
 			{
 				GetTileInfo(tile);
@@ -164,7 +169,6 @@ public class Shape_AI : Shape
 
 	protected void priorityShot(Shape greedyPlayer, bool isPlayerBeingGreedy)
 	{
-		Debug.Log("We did it");
 		if (isPlayerBeingGreedy && greedyPlayer != this)
 			priorityTarget = greedyPlayer;
 		else
@@ -217,12 +221,10 @@ public class Shape_AI : Shape
 	protected virtual IEnumerator Stun()
 	{
 		canMove = false;
-		stunText.transform.position = this.transform.position;
-		stunText.enabled = true;
 		this.transform.localScale = startingScale;
 		this.fillShape.SetActive(false);
+		isShapeActive(false);
 		yield return new WaitForSeconds(collisionStunTime);
-		stunText.enabled = false;
 		canMove = true;
 		actionStarted = false;
 	}
@@ -256,11 +258,9 @@ public class Shape_AI : Shape
 
 		}
 
-        //make this method in derived class
-
-
 	}
 
+    //Activated when player expands too big
 	protected virtual void BeingGreedy(Shape hitPlayer)
 	{
 		if (OnShoot != null)

@@ -72,7 +72,6 @@ public class Player : Shape
 
 	private void TouchHandler(RaycastHit2D playerTouch)
 	{
-		//work on adding no action marker
 		if (State == Enums.PlayerStage.Neutral)
 		{
 			if (playerTouch)
@@ -95,6 +94,7 @@ public class Player : Shape
                 
 				else if (playerTouch.collider.gameObject.tag == "Player")
 				{
+					
 					if (canShoot && canMove)
 					{
 						attackPlayer(playerTouch.transform);
@@ -109,6 +109,7 @@ public class Player : Shape
 				else if (playerTouch.collider.gameObject.tag == "Tile")
 				{
 					//SoundManager.Instance.EffectsSource.PlayOneShot(touchSound);
+					isShapeActive(true);
 					this.transform.position = touchLocation;
 					State = Enums.PlayerStage.Expand;
 				}
@@ -188,7 +189,8 @@ public class Player : Shape
 			Instantiate(collisionStun, this.transform.position, Quaternion.identity);
 			Handheld.Vibrate();
 			StopAllCoroutines();
-			canShoot = false;
+			stunText.color = Color.white;
+			stunText.enabled = true;
 			StartCoroutine(Stun());
 		}
 	}
@@ -205,11 +207,10 @@ public class Player : Shape
 	private IEnumerator Stun()
 	{
 		SoundManager.Instance.EffectsSource.Stop();
-		canMove = false;
-		stunText.transform.position = this.transform.position;
-		stunText.enabled = true;
+		canMove = false;    
 		State = Enums.PlayerStage.Neutral;
 		this.fillShape.SetActive(false);
+		isShapeActive(false);
 		yield return new WaitForSeconds(collisionStunTime);
 		stunText.enabled = false;
 		canMove = true;
@@ -233,6 +234,8 @@ public class Player : Shape
 			Instantiate(stunShot, this.transform.position, Quaternion.identity);
 			StopAllCoroutines();
 			Handheld.Vibrate();
+			stunText.GetComponent<Text>().color = attackColor;
+			stunText.enabled = true;
 			StartCoroutine(Stun());
 			IsGreedy = false;
 		}

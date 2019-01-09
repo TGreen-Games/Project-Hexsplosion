@@ -46,12 +46,10 @@ public class TutorialShape_AI : Shape_AI
 	{
 		StopAllCoroutines();
 		canMove = false;
-        stunText.transform.position = this.transform.position;
-        stunText.enabled = true;
         this.transform.localScale = startingScale;
         this.fillShape.SetActive(false);
+		isShapeActive(false);
         yield return new WaitForSeconds(collisionStunTime);
-        stunText.enabled = false;
         canMove = true;
 	}
 

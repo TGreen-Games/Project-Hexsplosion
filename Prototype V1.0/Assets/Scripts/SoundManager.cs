@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource EffectsSource;
     public AudioSource MusicSource;
 	public AudioClip titleMusic;
+	public AudioClip tutorialMusic;
 	public AudioClip bgm;
     // Random pitch adjustment range.
     public float LowPitchRange = .95f;
@@ -90,6 +91,12 @@ public class SoundManager : MonoBehaviour
 		{
 			MusicSource.Stop();
 			MusicSource.clip = bgm;
+			MusicSource.Play();
+		}
+		else if(SceneManager.GetActiveScene().buildIndex == (int)Enums.Scenes.Tutorial)
+		{
+			MusicSource.Stop();
+			MusicSource.clip = tutorialMusic;
 			MusicSource.Play();
 		}
 	}
