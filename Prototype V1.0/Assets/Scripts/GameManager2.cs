@@ -48,6 +48,10 @@ public class GameManager2 : MonoBehaviour
 		players.Add(playerColor, player);
 	}
 
+	public void RemovePlayer(Color playerColor)
+	{
+		players.Remove(playerColor);
+	}
 	public void AddScore(Color playerColor, int playerScore)
 	{
 		players[playerColor].score++;
@@ -70,7 +74,9 @@ public class GameManager2 : MonoBehaviour
 			//DisplayScores();
 		}
 		else if (SceneManager.GetActiveScene().buildIndex == (int)Enums.Scenes.Start)
+		{
 			players.Clear();
+		}
 		
 
 	}

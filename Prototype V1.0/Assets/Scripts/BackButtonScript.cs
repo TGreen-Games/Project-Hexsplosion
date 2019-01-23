@@ -46,7 +46,11 @@ public class BackButtonScript : MonoBehaviour
 			Application.Quit();
 		}
 		else
+		{
+			Time.timeScale = 1;
 			SceneManager.LoadScene((int)Enums.Scenes.Start);
+		}
+			
 	}
 
     public void NoButton()

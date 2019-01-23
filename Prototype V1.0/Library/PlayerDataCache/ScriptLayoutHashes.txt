@@ -201,6 +201,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
+8dbfc91e3f07ae15f03cf5dc54d5fb0c Assembly-CSharp.dll:.BackButtonScript
 b78b48c574f98b0142e20ebe99a48aa7 Assembly-CSharp.dll:.RFX4_EffectEvent
 0abe58b80c6051fb6b95c360ea81e16f Assembly-CSharp.dll:.LookAt
 0fe34069652a3cfa68e3fe4ba1af0830 Assembly-CSharp.dll:DigitalRubyShared.FingersJoystickScript
@@ -223,4 +224,3 @@ a52504e50c587e2f89099cdd93ae7824 Assembly-CSharp.dll:.RFX4_LightCurves
 b42f786d9d54e04c31425ba9dad200d3 Assembly-CSharp.dll:.MultiParticleSystemSpawner
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.No_Marker
 058dffd39719f0478c42d4800a4d2e77 Assembly-CSharp.dll:.UpDown
-8dbfc91e3f07ae15f03cf5dc54d5fb0c Assembly-CSharp.dll:.BackButtonScript

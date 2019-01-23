@@ -13,6 +13,7 @@ public class Timer : MonoBehaviour
 	public Text timerLabel;
 	public float time;
 	public GameObject countDownObject;
+	private Color[] colors;
 	private Text countDownText;
 	public delegate void PauseGame(bool isPaused);
     public static event PauseGame IsGamePaused;
@@ -48,7 +49,8 @@ public class Timer : MonoBehaviour
         IsGamePaused(true);
         var i = 3;
         float seconds = 1.0f;
-        countDownObject.SetActive(true);
+		countDownObject.SetActive(true);
+  
 		SoundManager.Instance.EffectsSource.PlayOneShot(testSound);
 		foreach (Color playerColor in GameManager2.Instance.players.Keys)
         {
@@ -62,13 +64,14 @@ public class Timer : MonoBehaviour
             {
                 countDownText.text = i.ToString();
 				//SoundManager.Instance.EffectsSource.PlayOneShot(cdwnTimerSound);
-                Debug.Log("countdown ACTIe");
+                Debug.Log("countdown active");
             }
             i--;
             yield return new WaitForSeconds(seconds);
 
         }
         countDownObject.SetActive(false);
+		Debug.Log("we here");
 		IsGamePaused(false);
 		StartCoroutine(timer());
 
